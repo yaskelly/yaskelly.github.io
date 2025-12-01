@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dra. Yaskelly Yedra | YaskCode Academy</title>
+  <meta name="description" content="YaskCode Academy: Campus virtual, implementación de plataformas LMS, tutorías académicas y contenidos de desarrollo de software y computación.">
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <!-- Navegación principal -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <div class="logo">
+        <!-- Puedes sustituir por una imagen -->
+        <span class="logo-mark">Y</span>
+        <span class="logo-text">YaskCode Academy</span>
+      </div>
+      <nav class="main-nav">
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#campus-yaskcode">Campus YaskCode</a>
+        <a href="#smart-learning">Smart Learning</a>
+        <a href="#tutorias">Tutorías Académicas</a>
+        <a href="#blog">Blog</a>
+        <a href="#contacto" class="btn-nav">Contáctanos</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO / Sobre mí resumido -->
+  <section id="sobre-mi" class="hero">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <h1>Dra. Yaskelly Yedra</h1>
+        <h2>Profesora de Desarrollo de Software & Fundadora de YaskCode Academy</h2>
+        <p>
+          Acompaño a estudiantes, docentes y organizaciones a diseñar, implementar
+          y aprovechar ecosistemas de aprendizaje digital: plataformas LMS, aulas
+          virtuales, cursos en línea y procesos formativos basados en buenas prácticas
+          de ingeniería de software y pedagogía.
+        </p>
+        <div class="hero-buttons">
+          <a href="#campus-yaskcode" class="btn-primary">Ir al Campus YaskCode</a>
+          <a href="#smart-learning" class="btn-secondary">Ver servicios Smart Learning</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <!-- Aquí puedes colocar tu foto -->
+        <div class="photo-placeholder">Tu foto aquí</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Campus YaskCode -->
+  <section id="campus-yaskcode" class="section">
+    <div class="container">
+      <h2>Campus YaskCode</h2>
+      <p class="section-intro">
+        Mientras activamos el campus en Moodle, puedes acceder a contenido formativo
+        desde mi canal y listas de reproducción en YouTube: clases, talleres, cápsulas
+        de ingeniería de software, calidad, arquitectura, ciencia de datos y más.
+      </p>
+
+      <div class="grid-2">
+        <div>
+          <h3>¿Qué encontrarás en el Campus (fase YouTube)?</h3>
+          <ul class="check-list">
+            <li>Clases introductorias y avanzadas de desarrollo de software.</li>
+            <li>Sesiones sobre modelos y simulación, ciencia de datos, Big Data.</li>
+            <li>Charlas sobre investigación, tesis y proyectos académicos.</li>
+            <li>Contenido para estudiantes de pregrado y postgrado.</li>
+          </ul>
+          <a href="https://www.youtube.com/@TUCANAL" target="_blank" class="btn-primary">
+            Ver videos en YouTube
+          </a>
+        </div>
+        <div>
+          <!-- EMBED de playlist o canal -->
+          <div class="video-frame">
+            <iframe
+              src="https://www.youtube.com/embed/VIDEO_ID"
+              title="Campus YaskCode en YouTube"
+              frameborder="0"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="coming-soon">
+        <strong>Próximamente:</strong> Campus YaskCode en Moodle con cursos estructurados,
+        evaluaciones, certificados y seguimiento del progreso.
+      </div>
+    </div>
+  </section>
+
+  <!-- Smart Learning: servicios LMS -->
+  <section id="smart-learning" class="section section-alt">
+    <div class="container">
+      <h2>Smart Learning: Implementación de plataformas LMS</h2>
+      <p class="section-intro">
+        Ayudo a colegios, universidades y centros de formación a diseñar, implementar
+        y optimizar su ecosistema de aprendizaje digital: desde la vitrina web hasta
+        el campus virtual, integrando herramientas como Moodle, WordPress LMS
+        y Google for Education.
+      </p>
+
+      <div class="grid-3 cards">
+        <article class="card">
+          <h3>Diagnóstico & Diseño</h3>
+          <p>
+            Análisis de tu contexto educativo, tipos de cursos, volumen de usuarios
+            y herramientas actuales para definir la mejor arquitectura: LMS en la nube,
+            on-premise o ecosistemas híbridos (WordPress + Moodle + Google Workspace).
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Implementación del LMS</h3>
+          <p>
+            Instalación, configuración básica y avanzada, creación de categorías,
+            cursos modelo, roles, permisos, temas visuales, plugins esenciales y
+            buenas prácticas de seguridad y backup.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Capacitación & Acompañamiento</h3>
+          <p>
+            Formación para docentes y administradores, acompañamiento en la migración
+            de contenidos, automatización básica de procesos y seguimiento durante
+            las primeras cohortes de cursos.
+          </p>
+        </article>
+      </div>
+
+      <div class="cta-center">
+        <a href="#contacto" class="btn-primary">
+          Solicitar una consultoría Smart Learning
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tutorías Académicas -->
+  <section id="tutorias" class="section">
+    <div class="container">
+      <h2>Tutorías Académicas</h2>
+      <p class="section-intro">
+        Ofrezco tutorías personalizadas para estudiantes de pregrado y postgrado
+        en áreas de desarrollo de software, ingeniería, modelos y simulación,
+        calidad, ciencia de datos y redacción de trabajos de grado.
+      </p>
+
+      <div class="grid-3 cards">
+        <article class="card">
+          <h3>Tesis y Trabajos de Grado</h3>
+          <p>
+            Asesoría en definición del problema, marco teórico, metodología,
+            modelado (UML, simulación), resultados y preparación de la defensa.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Asignaturas de Computación</h3>
+          <p>
+            Refuerzo en programación, ingeniería de software, arquitecturas,
+            bases de datos, modelos y simulación, entre otras materias.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Producción Científica</h3>
+          <p>
+            Orientación en redacción de artículos, organización de resultados,
+            selección de revistas y preparación del manuscrito.
+          </p>
+        </article>
+      </div>
+
+      <div class="cta-center">
+        <a href="#contacto" class="btn-secondary">
+          Ver disponibilidad de tutorías
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section id="blog" class="section section-alt">
+    <div class="container">
+      <h2>Blog</h2>
+      <p class="section-intro">
+        Próximamente encontrarás artículos sobre desarrollo de software, educación
+        virtual, ciencia de datos, investigación y experiencias docentes.
+      </p>
+
+      <div class="blog-placeholder">
+        <p>
+          Mientras tanto, puedes seguir mis publicaciones en:
+        </p>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/TULINKEDIN" target="_blank">LinkedIn</a></li>
+          <li><a href="https://scholar.google.com/" target="_blank">Google Scholar</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="section">
+    <div class="container">
+      <h2>Contáctanos</h2>
+      <p class="section-intro">
+        Si deseas implementar un campus virtual, contratar una consultoría o
+        solicitar tutorías académicas, completa el siguiente formulario o
+        escribe directamente a mi correo.
+      </p>
+
+      <div class="grid-2">
+        <div>
+          <h3>Correo</h3>
+          <p>
+            Puedes escribirme a:<br>
+            <a href="mailto:tu-correo@dominio.com">tu-correo@dominio.com</a>
+          </p>
+
+          <h3>Redes profesionales</h3>
+          <ul>
+            <li><a href="https://www.linkedin.com/in/TULINKEDIN" target="_blank">LinkedIn</a></li>
+            <li><a href="https://github.com/TUGITHUB" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <!-- Aquí puedes incrustar un formulario de Google Forms -->
+          <div class="form-embed">
+            <p><strong>Formulario de contacto</strong></p>
+            <p>
+              Aquí puedes incrustar un formulario de Google Forms para recibir
+              solicitudes de servicios, consultorías o tutorías.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>© <span id="year"></span> YaskCode Academy · Dra. Yaskelly Yedra</p>
+      <p>Campus · Smart Learning · Tutorías Académicas</p>
+    </div>
+  </footer>
+
+  <script>
+    // Año automático en el footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
