@@ -583,3 +583,25 @@ a:hover {
 #community-leadership .card-container {
   margin-top: 2rem; /* Aumenta el espacio entre badges y tarjetas */
 }
+/* Spacing fino para Community Leadership */
+
+#community-leadership .section-title {
+  margin-bottom: 0.5rem;
+}
+
+#community-leadership .section-subtitle {
+  margin-bottom: 1.2rem;
+}
+
+/* Contenedor de badges */
+.program-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 2rem; /* aire entre badges y tarjetas */
+}
+
+/* Extra respiro antes de las cards */
+#community-leadership .card-container {
+  margin-top: 0; /* por si había algo previo */
+}
