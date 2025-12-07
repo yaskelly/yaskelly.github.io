@@ -468,3 +468,50 @@ a:hover {
 #contacto .form-embed {
   border: 1px dashed rgba(209, 213, 219, 0.6);
 }
+/* ============================
+   Sección de Contacto Armonizada
+   ============================ */
+
+.contact-section {
+  background: #1d4ed8; /* azul rey */
+  padding: 3.5rem 0;
+  color: #fff;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+/* Tarjetas dentro del azul */
+.contact-card {
+  background: #ffffff;
+  color: #1f2937;
+  padding: 1.8rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  border-left: 5px solid #1d4ed8;
+}
+
+.contact-card h3 {
+  margin-bottom: 0.8rem;
+}
+
+.contact-card a {
+  color: #1d4ed8;
+  font-weight: 500;
+}
+
+.contact-card ul {
+  padding-left: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .contact-section {
+    padding: 2.5rem 0;
+  }
+}
+
