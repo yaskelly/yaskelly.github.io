@@ -478,10 +478,6 @@ a:hover {
   color: #e5e7eb;
 }
 
-#contacto a {
-  color: #e0f2fe;            /* enlaces azul muy claro */
-}
-
 #contacto a:hover {
   color: #ffffff;
   text-decoration: underline;
