@@ -366,7 +366,9 @@ a:hover {
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  margin-top: 0;
 }
+
 
 /* Card base */
 #community-leadership .card {
@@ -580,9 +582,7 @@ a:hover {
   margin-top: 1.2rem;  /* Ajusta el espacio hacia abajo */
   margin-bottom: 1.8rem; /* Espacio hacia la sección siguiente */
 }
-#community-leadership .card-container {
-  margin-top: 2rem; /* Aumenta el espacio entre badges y tarjetas */
-}
+
 /* Spacing definitivo para Community Leadership */
 
 /* Título cerca del subtítulo */
@@ -601,10 +601,7 @@ a:hover {
   margin-bottom: 2.4rem;
 }
 
-/* Las cards ya no necesitan más margen extra */
-#community-leadership .card-container {
-  margin-top: 0;
-}
+
 /* ============================
    Iconos y cabecera de cards
    ============================ */
