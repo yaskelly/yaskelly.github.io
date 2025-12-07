@@ -524,3 +524,10 @@ a:hover {
   font-weight: 700;
 }
 
+.contact-left {
+  text-align: left !important;
+  color: #ffffff;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
