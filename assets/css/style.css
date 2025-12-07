@@ -432,42 +432,7 @@ a:hover {
   padding-bottom: 3rem;
 }
 
-/* ============================
-   Sección Contáctanos en azul
-   ============================ */
 
-#contacto.section {
-  background: #1d4ed8;       /* azul rey */
-  color: #e5e7eb;            /* texto claro */
-}
-
-#contacto h2 {
-  color: #ffffff;
-}
-
-#contacto .section-intro {
-  color: #e5e7eb;
-}
-
-#contacto a {
-  color: #e0f2fe;            /* enlaces azul muy claro */
-}
-
-#contacto a:hover {
-  color: #ffffff;
-  text-decoration: underline;
-}
-
-#contacto .form-embed,
-#contacto .grid-2 > div {
-  background: rgba(15, 23, 42, 0.15);
-  border-radius: 0.75rem;
-  padding: 1.25rem;
-}
-
-#contacto .form-embed {
-  border: 1px dashed rgba(209, 213, 219, 0.6);
-}
 /* ============================
    Sección de Contacto Armonizada
    ============================ */
