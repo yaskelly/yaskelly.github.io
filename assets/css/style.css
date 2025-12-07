@@ -343,3 +343,87 @@ a:hover {
     margin-bottom: 1.5rem;
   }
 }
+/* ============================
+   Community Leadership (cards)
+   ============================ */
+
+#community-leadership .section-title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+#community-leadership .section-subtitle {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #4b5563;
+  max-width: 800px;
+  margin-bottom: 1.8rem;
+}
+
+/* Grid de cards */
+#community-leadership .card-container {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+/* Card base */
+#community-leadership .card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.8rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  transition: all 0.3s;
+}
+
+#community-leadership .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.10);
+}
+
+/* Cards destacadas */
+#community-leadership .english-card {
+  border-left: 6px solid #3b82f6; /* azul */
+}
+
+#community-leadership .main-card {
+  border-left: 6px solid #9333ea; /* violeta */
+}
+
+#community-leadership .mission-card {
+  border-left: 6px solid #10b981; /* verde */
+}
+
+/* Tipografía interna */
+#community-leadership .card h3 {
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+#community-leadership .card p {
+  line-height: 1.6;
+}
+
+#community-leadership .card ul {
+  padding-left: 1.2rem;
+}
+
+#community-leadership .card ul li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  #community-leadership .card-container {
+    gap: 1rem;
+  }
+
+  #community-leadership .card {
+    padding: 1.4rem;
+  }
+}
