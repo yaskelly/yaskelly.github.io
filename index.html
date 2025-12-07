@@ -449,12 +449,13 @@
 
     const revealElements = document.querySelectorAll('.reveal');
     revealElements.forEach((el, index) => {
-      el.style.transitionDelay = `${index * 80}ms`; // 0ms, 80ms, 160ms...
+      el.style.transitionDelay = `${index * 60}ms`; // 0ms, 80ms, 160ms...
       observer.observe(el);
     });
   </script>
 </body>
 </html>
+
 
 
 
