@@ -432,29 +432,35 @@
     // Año automático en el footer
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Scroll reveal (opacity + translateY + delay progresivo)
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.15
+   const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
       }
-    );
-
-    const revealElements = document.querySelectorAll('.reveal');
-    revealElements.forEach((el, index) => {
-      el.style.transitionDelay = `${index * 60}ms`; // 0ms, 80ms, 160ms...
-      observer.observe(el);
     });
+  },
+  {
+    threshold: 0.1   // un poco más sensible (antes 0.15)
+  }
+);
+
+const revealElements = document.querySelectorAll('.reveal');
+revealElements.forEach((el, index) => {
+  const isContact = el.closest('#contacto'); // ¿está dentro de la sección contacto?
+
+  // Contacto: sin retardo
+  // Resto de la página: escalonado bonito
+  const delay = isContact ? 0 : index * 60;
+
+  el.style.transitionDelay = `${delay}ms`;
+  observer.observe(el);
+});
   </script>
 </body>
 </html>
+
 
 
 
