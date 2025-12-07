@@ -605,3 +605,51 @@ a:hover {
 #community-leadership .card-container {
   margin-top: 0;
 }
+/* ============================
+   Iconos y cabecera de cards
+   ============================ */
+
+#community-leadership .card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+}
+
+#community-leadership .card-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: #eff6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #1d4ed8; /* color del trazo del SVG */
+}
+
+#community-leadership .main-card .card-icon {
+  background: #f5f3ff;
+  color: #7c3aed;
+}
+
+#community-leadership .mission-card .card-icon {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+/* ============================
+   Animación Scroll Reveal
+   ============================ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
