@@ -474,11 +474,6 @@ a:hover {
    ============================ */
 
 
-
-#contacto h2 {
-  color: #ffffff;
-}
-
 #contacto .section-intro {
   color: #e5e7eb;
 }
@@ -536,11 +531,6 @@ a:hover {
   margin-bottom: 0.8rem;
 }
 
-.contact-card a {
-  color: #1d4ed8;
-  font-weight: 500;
-}
-
 .contact-card ul {
   padding-left: 1.2rem;
   margin-top: 0.5rem;
@@ -559,12 +549,6 @@ a:hover {
   font-weight: 700;
 }
 
-
-}
-.badges-container {
-  margin-top: 1.2rem;  /* Ajusta el espacio hacia abajo */
-  margin-bottom: 1.8rem; /* Espacio hacia la sección siguiente */
-}
 
 /* Spacing definitivo para Community Leadership */
 
