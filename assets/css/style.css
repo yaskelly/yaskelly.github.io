@@ -516,4 +516,11 @@ a:hover {
     padding: 2.5rem 0;
   }
 }
+.contact-title {
+  text-align: center;
+  color: #ffffff;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
 
