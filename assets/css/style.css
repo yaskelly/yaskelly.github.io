@@ -576,4 +576,10 @@ a:hover {
   color: #163ea3 !important; /* azul aún más fuerte al pasar el mouse */
   text-decoration: underline;
 }
-
+.badges-container {
+  margin-top: 1.2rem;  /* Ajusta el espacio hacia abajo */
+  margin-bottom: 1.8rem; /* Espacio hacia la sección siguiente */
+}
+#community-leadership .card-container {
+  margin-top: 2rem; /* Aumenta el espacio entre badges y tarjetas */
+}
