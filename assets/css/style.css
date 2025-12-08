@@ -628,4 +628,18 @@ a:hover {
   color: #163ea3 !important;
   text-decoration: underline;
 }
+.contact-card .btn-primary {
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: #1d4ed8;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-card .btn-primary:hover {
+  background: #1e40af;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  text-decoration: none;
+}
 
