@@ -617,4 +617,15 @@ a:hover {
   margin-top: 3rem;
   padding-top: 3rem;
 }
+/* Corrección: enlaces en tarjetas blancas dentro del contacto */
+.contact-card a {
+  color: #1d4ed8 !important;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.contact-card a:hover {
+  color: #163ea3 !important;
+  text-decoration: underline;
+}
 
