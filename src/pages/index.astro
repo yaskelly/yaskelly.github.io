@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import CampusMapPlaceholder from '../components/CampusMapPlaceholder.astro';
+import { campusAreas } from '../data/campus';
+---
+
+<BaseLayout
+  title="Campus YaskCode | Yaskelly Yedra"
+  description="Portal académico y tecnológico de Campus YaskCode."
+>
+  <SiteHeader />
+
+  <main>
+    <section class="hero shell" id="about">
+      <p class="eyebrow">Campus YaskCode</p>
+      <h1>Bienvenida al Campus YaskCode</h1>
+      <p class="hero-copy">
+        Explora un ecosistema donde la docencia, la investigación y la ingeniería
+        de software se convierten en proyectos con impacto real.
+      </p>
+      <a class="button" href="#campus">Entrar al campus</a>
+    </section>
+
+    <div class="shell">
+      <CampusMapPlaceholder />
+    </div>
+
+    <section class="campus-section shell" id="campus" aria-labelledby="campus-title">
+      <div class="section-heading">
+        <p class="eyebrow">Áreas del campus</p>
+        <h2 id="campus-title">Elige tu próximo recorrido</h2>
+      </div>
+      <div class="area-grid">
+        {campusAreas.map((area) => (
+          <article class="area-card">
+            <div class="area-card-topline">
+              <span class="area-index" aria-hidden="true">{String(campusAreas.indexOf(area) + 1).padStart(2, '0')}</span>
+              {area.status && <span class="status">{area.status}</span>}
+            </div>
+            <h3>{area.name}</h3>
+            <p>{area.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="shell contact-inner">
+        <div>
+          <p class="eyebrow">Casa personal de Yaskelly</p>
+          <h2 id="contact-title">El campus empieza con una conversación.</h2>
+        </div>
+        <a class="button button-light" href="mailto:yyedra@fec.luz.edu.ve">Escribir a Yaskelly</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <span>© {new Date().getFullYear()} YaskCode</span>
+      <span>Base Astro · Fase 4B</span>
+    </div>
+  </footer>
+</BaseLayout>
