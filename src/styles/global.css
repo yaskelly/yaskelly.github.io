@@ -46,8 +46,9 @@ h2 { max-width: 650px; margin-bottom: 1rem; font-size: clamp(2rem, 4vw, 3.5rem);
 .campus-image { display: block; width: 100%; height: 100%; object-fit: contain; }
 .hotspot-layer { position: absolute; inset: 0; pointer-events: none; }
 .hotspot-item { position: absolute; width: 0; height: 0; }
-.hotspot { position: relative; z-index: 1000; display: grid; width: 1.35rem; height: 1.35rem; padding: 0; place-items: center; border: 2px solid white; border-radius: 50%; background: var(--accent); color: white; box-shadow: 0 1px 5px rgba(23, 23, 27, .3); pointer-events: auto; transform: translate(-50%, -50%); cursor: pointer; }
-.hotspot::before { width: .35rem; height: .35rem; border-radius: 50%; background: white; content: ''; }
+.hotspot { position: relative; z-index: 1000; display: grid; width: 1.35rem; height: 1.35rem; padding: 0; place-items: center; border: 0; border-radius: 50%; background: transparent; color: transparent; box-shadow: none; pointer-events: auto; transform: translate(-50%, -50%); cursor: pointer; }
+.hotspot::before { content: none; }
+.hotspot:focus-visible { outline: 2px solid var(--highlight); outline-offset: 2px; }
 .overlay-item { position: absolute; width: 0; height: 0; pointer-events: none; }
 .hotspot-overlay { position: absolute; bottom: 0; left: 0; z-index: 0; width: var(--overlay-width, min(15rem, 24vw)); max-width: none; opacity: 0; pointer-events: none; transform: translate(calc(-50% + var(--overlay-offset-x, 0)), var(--overlay-offset-y, 0)) scale(var(--overlay-scale, .98)); transform-origin: var(--overlay-origin, bottom center); filter: brightness(1) drop-shadow(0 0 0 rgba(23, 23, 27, 0)); transition: opacity .2s ease, transform .2s ease, filter .2s ease; }
 .hotspot-item:has(.hotspot:hover) + .overlay-item .hotspot-overlay, .hotspot-item:has(.hotspot:focus-visible) + .overlay-item .hotspot-overlay { opacity: 1; transform: translate(calc(-50% + var(--overlay-offset-x, 0)), calc(var(--overlay-offset-y, 0) - 4px)) scale(var(--overlay-scale, .98)); filter: brightness(1.1) drop-shadow(0 8px 8px rgba(23, 23, 27, .24)); }
