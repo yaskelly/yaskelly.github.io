@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
-import CampusMapPlaceholder from '../components/CampusMapPlaceholder.astro';
+import CampusMap from '../components/CampusMap.astro';
 import { campusAreas } from '../data/campus';
 ---
 
@@ -13,7 +13,6 @@ import { campusAreas } from '../data/campus';
 
   <main>
     <section class="hero shell" id="about">
-      <p class="eyebrow">Campus YaskCode</p>
       <h1>Bienvenida al Campus YaskCode</h1>
       <p class="hero-copy">
         Explora un ecosistema donde la docencia, la investigación y la ingeniería
@@ -22,14 +21,14 @@ import { campusAreas } from '../data/campus';
       <a class="button" href="#campus">Entrar al campus</a>
     </section>
 
-    <div class="shell">
-      <CampusMapPlaceholder />
-    </div>
+    <CampusMap />
 
     <section class="campus-section shell" id="campus" aria-labelledby="campus-title">
       <div class="section-heading">
-        <p class="eyebrow">Áreas del campus</p>
-        <h2 id="campus-title">Elige tu próximo recorrido</h2>
+        <div class="section-heading-copy">
+          <p class="eyebrow">ÁREAS DEL CAMPUS</p>
+          <h2 id="campus-title">Elige tu próximo recorrido</h2>
+        </div>
       </div>
       <div class="area-grid">
         {campusAreas.map((area) => (

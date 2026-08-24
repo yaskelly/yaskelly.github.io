@@ -1,0 +1,72 @@
+---
+import { campusAreas } from '../data/campus';
+---
+
+<section class="map-section shell" aria-labelledby="map-title">
+  <div class="map-intro">
+    <h2 id="map-title">Explora Campus YaskCode</h2>
+    <p>
+      Recorre los espacios de docencia, investigación, innovación y comunidad que
+      forman el ecosistema.
+    </p>
+  </div>
+
+  <div class="map-frame">
+    <img
+      src="/images/campus-yaskcode.png"
+      alt="Ilustración del Campus YaskCode con sus espacios académicos, tecnológicos y comunitarios."
+      class="campus-image"
+    />
+    <div class="hotspot-layer" aria-label="Hotspots del Campus YaskCode">
+      {campusAreas.map((area) => area.hotspot?.x !== undefined && area.hotspot?.y !== undefined && (
+        <>
+        <div
+          class="hotspot-item"
+          style={`left: ${area.hotspot.x}%; top: ${area.hotspot.y}%;`}
+        >
+          <button type="button" class="hotspot" aria-label={area.name}>
+            <span class="hotspot-label">{area.shortName ?? area.name}</span>
+          </button>
+        </div>
+          {area.overlay && (
+            <div
+              class="overlay-item"
+              style={`left: ${(area.overlay.x ?? area.hotspot.x)}%; top: ${(area.overlay.y ?? area.hotspot.y)}%;`}
+            >
+              <img
+                src={area.overlay.src}
+                alt={area.overlay.alt}
+                class="hotspot-overlay"
+                aria-hidden="true"
+                style={`
+                  --overlay-width: ${area.overlay.width || 'min(15rem, 24vw)'};
+                  --overlay-offset-x: ${area.overlay.offsetX || '0'};
+                  --overlay-offset-y: ${area.overlay.offsetY || '0'};
+                  --overlay-scale: ${area.overlay.scale || '0.98'};
+                  --overlay-origin: ${area.overlay.origin || 'bottom center'};
+                  ${area.overlay.zIndex ? `z-index: ${area.overlay.zIndex};` : ''}
+                `}
+              />
+            </div>
+          )}
+        </>
+      ))}
+    </div>
+    {campusAreas.map((area) => area.interactiveLayer && (
+      <div
+        class="interactive-layer"
+        style={`left: ${area.interactiveLayer.x}%; top: ${area.interactiveLayer.y}%; width: ${area.interactiveLayer.width};`}
+      >
+        <img
+          src={area.interactiveLayer.src}
+          alt=""
+          class="interactive-overlay"
+          aria-hidden="true"
+        />
+        <button type="button" class="interactive-hotspot" aria-label={area.name}>
+          <span class="hotspot-label">{area.shortName ?? area.name}</span>
+        </button>
+      </div>
+    ))}
+  </div>
+</section>
