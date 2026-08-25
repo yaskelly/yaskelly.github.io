@@ -32,7 +32,7 @@ import { campusAreas } from '../data/campus';
       </div>
       <div class="area-grid">
         {campusAreas.map((area) => (
-          <article class="area-card">
+          <article class="area-card" id={`campus-status-${area.id}`}>
             <div class="area-card-topline">
               <span class="area-index" aria-hidden="true">{String(campusAreas.indexOf(area) + 1).padStart(2, '0')}</span>
               {area.status && <span class="status">{area.status}</span>}

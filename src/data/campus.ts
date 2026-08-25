@@ -3,283 +3,99 @@ export type CampusArea = {
   name: string;
   shortName: string;
   description: string;
-  slug: string;
   category: 'academic' | 'community' | 'institutional' | 'personal' | 'infrastructure';
   status?: 'Próximamente' | 'En construcción';
-  /** Posición oficial en el orden de navegación por teclado (Tab) del Campus. */
+  /** Orden oficial de lectura y navegación por teclado del Campus. */
   navOrder: number;
-  hotspot?: {
-    x?: number;
-    y?: number;
-  };
-  overlay?: {
-    src: string;
-    alt: string;
-      x?: number;
-      y?: number;
-    width?: string;
-    offsetX?: string;
-    offsetY?: string;
-    scale?: string;
-    origin?: string;
-    zIndex?: number;
-  };
-  interactiveLayer?: {
-    src: string;
-    x: number;
-    y: number;
-    width: string;
-  };
-  /** Polígono SVG de interacción calibrado al sistema de coordenadas del mapa maestro (solo Academy). */
-  interactionPolygon?: {
-    points: string;
-  };
-  /** Destino de navegación al hacer clic/Enter en el foco del área. Si falta, la fuente aún no está definida. */
+  /** Polígono y ancla de etiqueta en el canvas maestro de 1672 × 941. */
+  interaction: { points: string; labelX: number; labelY: number };
+  /** URL ya existente. Si falta, el mapa enlaza a la ficha local del destino. */
   interactionUrl?: string;
 };
 
 export const campusAreas: CampusArea[] = [
   {
-    id: 'academy',
-    name: 'YaskCode Academy',
-    shortName: 'YaskCode Academy',
-    description: 'Formación práctica en desarrollo de software y computación.',
-    slug: 'academy',
-    category: 'academic',
-    navOrder: 1,
-    hotspot: { x: 17, y: 47 },
-    overlay: {
-      src: '/images/overlays/academy-master-derived-v3.png',
-      alt: 'YaskCode Academy destacada sobre el mapa del Campus YaskCode.',
-      x: 4.784689,
-      y: 29.755579,
-      width: '23.325359%',
-      offsetX: '0',
-      offsetY: '0',
-      scale: '1',
-      origin: 'top left',
-      zIndex: 10
-    },
-    interactionPolygon: {
-      points: '113,304 176,291 249,296 324,315 355,324 363,351 397,357 424,372 441,399 439,429 428,453 443,478 454,498 452,519 432,535 389,545 343,545 306,535 269,527 224,527 177,526 140,516 109,502 94,477 92,445 94,404 93,375 100,347'
-    },
+    id: 'academy', name: 'YaskCode Academy', shortName: 'YaskCode Academy',
+    description: 'Formación práctica en desarrollo de software y computación.', category: 'academic', navOrder: 1,
+    interaction: { points: '96,365 122,340 211,318 333,329 424,363 462,405 454,469 423,513 333,538 220,529 129,500 94,451', labelX: 104, labelY: 304 },
     interactionUrl: 'https://github.com/YaskCode'
   },
   {
-    id: 'posgrado-luz',
-    name: 'Posgrado LUZ',
-    shortName: 'Posgrado LUZ',
-    description: 'Espacio para formación avanzada, investigación y acompañamiento de posgrado.',
-    slug: 'posgrado-luz',
-    category: 'institutional',
-    navOrder: 2,
-    hotspot: { x: 28, y: 30 },
-    overlay: {
-      src: '/images/overlays/posgrado-luz.png',
-      alt: 'Edificio de Posgrado LUZ.',
-      width: '11rem',
-      offsetX: '-8%',
-      offsetY: '0',
-      scale: '1.01',
-      origin: 'bottom left',
-      zIndex: 11
-    },
+    id: 'posgrado-luz', name: 'Posgrado LUZ', shortName: 'Posgrado LUZ',
+    description: 'Formación avanzada, investigación y acompañamiento de posgrado.', category: 'institutional', navOrder: 2,
+    interaction: { points: '286,213 478,201 500,225 500,364 456,385 311,353 286,323', labelX: 284, labelY: 174 },
     interactionUrl: 'https://github.com/maestriaentic-luz'
   },
   {
-    id: 'cti-pregrado',
-    name: 'CTI Pregrado',
-    shortName: 'CTI Pregrado',
-    description: 'Centro de trabajo e iniciativas para estudiantes de la Licenciatura en Computación.',
-    slug: 'cti-pregrado',
-    category: 'institutional',
-    navOrder: 3,
-    hotspot: { x: 32, y: 36 },
-    overlay: {
-      src: '/images/overlays/cti-pregrado.png',
-      alt: 'Edificio del CTI Pregrado.',
-      width: '10.5rem',
-      offsetX: '-8%',
-      offsetY: '0',
-      scale: '1.02',
-      origin: 'bottom center',
-      zIndex: 10
-    },
+    id: 'cti-pregrado', name: 'CTI Pregrado', shortName: 'CTI Pregrado',
+    description: 'Iniciativas para estudiantes de la Licenciatura en Computación.', category: 'institutional', navOrder: 3,
+    interaction: { points: '501,286 649,277 659,304 657,404 622,424 532,412 499,379', labelX: 491, labelY: 250 },
     interactionUrl: 'https://github.com/LUZ-Computing-Research'
   },
   {
-    id: 'research',
-    name: 'YaskCode Research / Centro de Mentoría',
-    shortName: 'YaskCode Research',
-    description: 'Investigación, publicaciones y acompañamiento académico.',
-    slug: 'research-centro-de-mentoria',
-    category: 'academic',
-    navOrder: 4,
-    hotspot: { x: 42, y: 30 },
-    overlay: {
-      src: '/images/overlays/research.png',
-      alt: 'Edificio de YaskCode Research y Centro de Mentoría.',
-      width: '11rem',
-      offsetX: '-5%',
-      offsetY: '0',
-      scale: '1.01',
-      origin: 'bottom center',
-      zIndex: 9
-    },
+    id: 'research', name: 'YaskCode Research', shortName: 'YaskCode Research',
+    description: 'Investigación, publicaciones y acompañamiento académico.', category: 'academic', navOrder: 4,
+    interaction: { points: '660,222 848,218 870,240 870,369 837,392 699,385 665,355', labelX: 659, labelY: 184 },
     interactionUrl: 'https://github.com/YaskCode-research'
   },
   {
-    id: 'laboratory',
-    name: 'YaskCode Laboratory',
-    shortName: 'Laboratory',
-    description: 'Experimentación tecnológica, proyectos y prototipos.',
-    slug: 'laboratory',
-    category: 'academic',
-    navOrder: 5,
-    hotspot: { x: 61, y: 33 },
-    overlay: {
-      src: '/images/overlays/lab.png',
-      alt: 'Edificio de YaskCode Laboratory.'
-    },
+    id: 'laboratory', name: 'YaskCode Laboratory', shortName: 'Laboratory',
+    description: 'Experimentación tecnológica, proyectos y prototipos.', category: 'academic', navOrder: 5,
+    interaction: { points: '916,258 1014,237 1169,264 1211,301 1203,425 1155,466 1016,450 920,409', labelX: 943, labelY: 208 },
     interactionUrl: 'https://github.com/YaskCode-laboratory'
   },
   {
-    id: 'library',
-    name: 'Library',
-    shortName: 'Library',
-    description: 'Recursos abiertos, documentación y materiales de estudio.',
-    slug: 'library',
-    category: 'academic',
-    navOrder: 6,
-    hotspot: { x: 53, y: 53 },
-    overlay: {
-      src: '/images/overlays/library.png',
-      alt: 'Edificio de Library del Campus YaskCode.'
-    }
+    id: 'library', name: 'Library', shortName: 'Library',
+    description: 'Recursos abiertos, documentación y materiales de estudio.', category: 'academic', navOrder: 6,
+    interaction: { points: '718,347 766,322 886,330 943,365 945,477 912,515 793,519 732,486 711,412', labelX: 734, labelY: 306 }
   },
   {
-    id: 'community',
-    name: 'YaskCode Community',
-    shortName: 'Community',
-    description: 'Comunidades, encuentros y colaboración tecnológica.',
-    slug: 'community',
-    category: 'community',
-    navOrder: 7,
-    hotspot: { x: 59, y: 55 },
-    overlay: {
-      src: '/images/overlays/community.png',
-      alt: 'Edificio de YaskCode Community.'
-    },
+    id: 'community', name: 'YaskCode Community', shortName: 'Community',
+    description: 'Comunidades, encuentros y colaboración tecnológica.', category: 'community', navOrder: 7,
+    interaction: { points: '982,501 1047,480 1106,495 1122,532 1108,579 1036,590 981,567', labelX: 970, labelY: 463 },
     interactionUrl: 'https://github.com/YaskCode-community'
   },
   {
-    id: 'auditorio',
-    name: 'Auditorio',
-    shortName: 'Auditorio',
-    description: 'Lugar para charlas, encuentros, presentaciones y actividades abiertas.',
-    slug: 'auditorio',
-    category: 'infrastructure',
-    navOrder: 8,
-    hotspot: { x: 68, y: 48 },
-    overlay: {
-      src: '/images/overlays/anfiteatro-moderno.png',
-      alt: 'Auditorio del Campus YaskCode.'
-    }
+    id: 'auditorio', name: 'Auditorio', shortName: 'Auditorio',
+    description: 'Charlas, encuentros, presentaciones y actividades abiertas.', category: 'infrastructure', navOrder: 8,
+    interaction: { points: '1147,395 1229,366 1368,382 1430,424 1427,512 1378,567 1242,552 1151,498', labelX: 1150, labelY: 349 }
   },
   {
-    id: 'parque-innovacion-tecnologia',
-    name: 'Parque de Innovación y Tecnología',
-    shortName: 'Parque Tecnológico',
-    description: 'Zona en construcción y proyectos en desarrollo.',
-    slug: 'parque-innovacion-tecnologia',
-    category: 'infrastructure',
-    status: 'En construcción',
-    navOrder: 9,
-    hotspot: { x: 96, y: 42 },
-    overlay: {
-      src: '/images/overlays/yaskcode-construccion.png',
-      alt: 'Zona en construcción del Parque de Innovación y Tecnología.'
-    },
-    interactionUrl: 'https://github.com/YaskCode-smart-learning'
+    id: 'yaskcode-build', name: 'Parque Tecnológico / YaskCode Build', shortName: 'Parque Tecnológico',
+    description: 'Zona en construcción y proyectos en desarrollo.', category: 'infrastructure', status: 'En construcción', navOrder: 9,
+    interaction: { points: '1392,352 1570,339 1641,387 1642,603 1593,641 1420,606 1368,546', labelX: 1322, labelY: 305 }
   },
   {
-    id: 'gdg-caracas',
-    name: 'GDG Caracas',
-    shortName: 'GDG Caracas',
-    description: 'Conexión con la comunidad de desarrolladores y sus actividades tecnológicas.',
-    slug: 'gdg-caracas',
-    category: 'community',
-    navOrder: 10,
-    hotspot: { x: 83, y: 82 },
-    overlay: {
-      src: '/images/overlays/gdg-caracas.png',
-      alt: 'Edificio de GDG Caracas.'
-    },
+    id: 'gdg-caracas', name: 'GDG Caracas', shortName: 'GDG Caracas',
+    description: 'Conexión con la comunidad de desarrolladores y sus actividades.', category: 'community', navOrder: 10,
+    interaction: { points: '1264,671 1301,644 1518,665 1579,707 1573,844 1519,884 1335,863 1262,820', labelX: 1253, labelY: 626 },
     interactionUrl: 'https://github.com/gdg-caracas'
   },
   {
-    id: 'wtm-technovation',
-    name: 'WTM + Technovation',
-    shortName: 'WTM + Tech',
-    description: 'Iniciativas para impulsar la participación de mujeres y jóvenes en tecnología.',
-    slug: 'wtm-technovation',
-    category: 'community',
-    navOrder: 11,
-    hotspot: { x: 61, y: 84 },
-    overlay: {
-      src: '/images/overlays/wtm-technovation.png',
-      alt: 'Edificio de WTM y Technovation.'
-    }
+    id: 'wtm-technovation', name: 'WTM + Technovation', shortName: 'WTM + Technovation',
+    description: 'Participación de mujeres y jóvenes en tecnología.', category: 'community', navOrder: 11,
+    interaction: { points: '901,688 956,655 1102,661 1209,719 1215,849 1171,910 957,904 885,846', labelX: 883, labelY: 632 }
   },
   {
-    id: 'smart-learning',
-    name: 'Smart Learning',
-    description: 'Ecosistemas digitales de aprendizaje y plataformas LMS.',
-    shortName: 'Smart Learning',
-    slug: 'smart-learning',
-    category: 'academic',
-    status: 'Próximamente',
-    navOrder: 12,
-    hotspot: { x: 39, y: 82 },
-    overlay: {
-      src: '/images/overlays/smart-learning.png',
-      alt: 'Edificio de Smart Learning.'
-    },
+    id: 'smart-learning', name: 'Smart Learning', shortName: 'Smart Learning',
+    description: 'Ecosistemas digitales de aprendizaje y plataformas LMS.', category: 'academic', status: 'Próximamente', navOrder: 12,
+    interaction: { points: '407,670 464,638 627,645 691,682 686,825 645,867 475,861 408,817', labelX: 400, labelY: 625 },
     interactionUrl: 'https://github.com/YaskCode-smart-learning'
   },
   {
-    id: 'casa-yaskelly',
-    name: 'Casa personal de Yaskelly',
-    shortName: 'Casa de Yaskelly',
-    description: 'Un espacio personal para conocer la trayectoria, visión y proyectos de Yaskelly.',
-    slug: 'casa-personal-yaskelly',
-    category: 'personal',
-    navOrder: 13,
-    hotspot: { x: 17, y: 79 },
-    overlay: {
-      src: '/images/overlays/home.yaskellyyedra.png',
-      alt: 'Casa personal de Yaskelly.'
-    },
+    id: 'casa-yaskelly', name: 'Casa personal de Yaskelly', shortName: 'Casa de Yaskelly',
+    description: 'Trayectoria, visión y proyectos personales de Yaskelly.', category: 'personal', navOrder: 13,
+    interaction: { points: '75,645 151,607 276,624 335,681 328,805 275,848 108,832 62,770', labelX: 70, labelY: 594 },
     interactionUrl: 'https://www.yaskellyyedra.com/'
   },
   {
-    id: 'entrada-principal',
-    name: 'Entrada principal — YaskCode',
-    shortName: 'Entrada principal',
-    description: 'El acceso principal al ecosistema Campus YaskCode.',
-    slug: 'entrada-principal-yaskcode',
-    category: 'infrastructure',
-    navOrder: 14,
-    hotspot: { x: 54, y: 66 }
+    id: 'entrada-principal', name: 'Entrada principal — YaskCode', shortName: 'Entrada principal',
+    description: 'Acceso principal al ecosistema Campus YaskCode.', category: 'infrastructure', navOrder: 14,
+    interaction: { points: '779,563 941,561 963,589 960,661 931,679 796,672 772,646', labelX: 752, labelY: 527 }
   },
   {
-    id: 'conexiones-profesionales',
-    name: 'Conexiones profesionales — mediante la carretera',
-    shortName: 'Conexiones',
-    description: 'Rutas para conectar el campus con oportunidades, organizaciones y redes profesionales.',
-    slug: 'conexiones-profesionales',
-    category: 'community',
-    navOrder: 15,
-    hotspot: { x: 45, y: 93 }
+    id: 'conexiones-profesionales', name: 'Conexiones profesionales — carretera', shortName: 'Conexiones profesionales',
+    description: 'Rutas hacia oportunidades, organizaciones y redes profesionales.', category: 'community', navOrder: 15,
+    interaction: { points: '614,690 734,667 855,688 916,742 862,803 774,867 714,938 602,938 650,850 725,783 658,742', labelX: 596, labelY: 652 }
   }
 ];

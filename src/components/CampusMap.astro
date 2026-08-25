@@ -1,104 +1,60 @@
 ---
 import { campusAreas } from '../data/campus';
+
+const orderedAreas = [...campusAreas].sort((a, b) => a.navOrder - b.navOrder);
 ---
 
 <section class="map-section shell" aria-labelledby="map-title">
   <div class="map-intro">
     <h2 id="map-title">Explora Campus YaskCode</h2>
-    <p>
-      Recorre los espacios de docencia, investigación, innovación y comunidad que
-      forman el ecosistema.
-    </p>
+    <p>Selecciona un espacio del mapa. En pantallas pequeñas, desplázate horizontalmente para recorrerlo.</p>
   </div>
 
-  <div class="map-frame">
-    <img
-      src="/images/campus-yaskcode.png"
-      alt="Ilustración del Campus YaskCode con sus espacios académicos, tecnológicos y comunitarios."
-      class="campus-image"
-    />
-    <div class="hotspot-layer" aria-label="Hotspots del Campus YaskCode">
-      {campusAreas.map((area) => (
-        <>
-        {area.interactionPolygon ? (
-          <svg
-            class="interaction-svg-layer"
-            viewBox="0 0 1672 941"
-            preserveAspectRatio="xMidYMid slice"
-            role="presentation"
-            aria-hidden="false"
-          >
+  <div class="map-scroll" role="region" aria-label="Mapa interactivo del Campus YaskCode" tabindex="0">
+    <!-- Canvas maestro intacto: todas las capas comparten las dimensiones fuente 1672 × 941. -->
+    <div class="map-frame">
+      <img
+        src="/images/campus-yaskcode.png"
+        alt="Vista general del Campus YaskCode con edificios académicos, comunitarios y tecnológicos."
+        class="campus-image"
+        width="1672"
+        height="941"
+      />
+
+      <!--
+        Un único viewBox hace que los polígonos sean reproducibles y responsivos sin alterar la imagen.
+        Para futuros ajustes, registra los puntos en src/data/campus.ts usando siempre el canvas 1672 × 941.
+      -->
+      <svg class="campus-interactions" viewBox="0 0 1672 941" aria-labelledby="destinations-title">
+        <title id="destinations-title">Quince destinos interactivos del Campus YaskCode</title>
+        {orderedAreas.map((area) => {
+          const hasExternalUrl = Boolean(area.interactionUrl);
+          const href = area.interactionUrl ?? `#campus-status-${area.id}`;
+          const action = hasExternalUrl ? 'Explorar' : 'Ver información';
+          return (
             <a
-              href={area.interactionUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="interaction-hit-link"
-              aria-label={area.name}
+              href={href}
+              target={hasExternalUrl ? '_blank' : undefined}
+              rel={hasExternalUrl ? 'noopener noreferrer' : undefined}
+              class={`campus-destination campus-destination--${area.category}`}
+              aria-label={`${area.name}. ${action}.`}
             >
-              <polygon
-                id={`${area.id}-hit-area`}
-                class="interaction-hit-area"
-                points={area.interactionPolygon.points}
-              />
-            </a>
-            <g class="academy-callout" aria-hidden="true">
-              <path class="academy-callout-tail" d="M148,281 L172,281 L160,301 Z" />
-              <rect class="academy-callout-bg" x="48" y="213" width="212" height="70" rx="17" />
-              <text class="academy-callout-title" x="64" y="244">YaskCode Academy</text>
-              <text class="academy-callout-subtitle" x="64" y="266">Explorar</text>
-            </g>
-          </svg>
-        ) : area.hotspot?.x !== undefined && area.hotspot?.y !== undefined && (
-          <div
-            class="hotspot-item"
-            style={`left: ${area.hotspot.x}%; top: ${area.hotspot.y}%;`}
-          >
-            {area.interactionUrl ? (
-              <a
-                href={area.interactionUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hotspot"
-                aria-label={area.name}
-              >
-                <span class="hotspot-label">
-                  {area.shortName ?? area.name}
-                  <span class="hotspot-label-action">Explorar</span>
-                </span>
-              </a>
-            ) : (
-              <button type="button" class="hotspot" aria-label={area.name}>
-                <span class="hotspot-label">
-                  {area.shortName ?? area.name}
-                  <span class="hotspot-label-action">Próximamente</span>
-                </span>
-              </button>
-            )}
-          </div>
-        )}
-          {area.overlay && !area.interactionPolygon && (
-            <div
-              class="overlay-item"
-              style={`left: ${(area.overlay.x ?? area.hotspot?.x)}%; top: ${(area.overlay.y ?? area.hotspot?.y)}%;`}
-            >
-              <img
-                src={area.overlay.src}
-                alt={area.overlay.alt}
-                class="hotspot-overlay"
+              <polygon class="destination-hit" points={area.interaction.points} />
+              <polygon class="destination-outline" points={area.interaction.points} aria-hidden="true" />
+              <g
+                class="destination-label"
+                transform={`translate(${area.interaction.labelX} ${area.interaction.labelY})`}
                 aria-hidden="true"
-                style={`
-                  --overlay-width: ${area.overlay.width || 'min(15rem, 24vw)'};
-                  --overlay-offset-x: ${area.overlay.offsetX || '0'};
-                  --overlay-offset-y: ${area.overlay.offsetY || '0'};
-                  --overlay-scale: ${area.overlay.scale || '0.98'};
-                  --overlay-origin: ${area.overlay.origin || 'bottom center'};
-                  ${area.overlay.zIndex ? `z-index: ${area.overlay.zIndex};` : ''}
-                `}
-              />
-            </div>
-          )}
-        </>
-      ))}
+              >
+                <rect class="destination-label-bg" width="292" height="54" rx="12" />
+                <text x="16" y="23" class="destination-label-name">{area.shortName}</text>
+                <text x="16" y="42" class="destination-label-action">{action}</text>
+              </g>
+            </a>
+          );
+        })}
+      </svg>
     </div>
   </div>
+  <p class="map-help">Usa Tab para recorrer los 15 destinos y Enter para abrir el seleccionado.</p>
 </section>
