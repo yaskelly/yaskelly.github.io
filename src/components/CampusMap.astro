@@ -18,20 +18,68 @@ import { campusAreas } from '../data/campus';
       class="campus-image"
     />
     <div class="hotspot-layer" aria-label="Hotspots del Campus YaskCode">
-      {campusAreas.map((area) => area.hotspot?.x !== undefined && area.hotspot?.y !== undefined && (
+      {campusAreas.map((area) => (
         <>
-        <div
-          class="hotspot-item"
-          style={`left: ${area.hotspot.x}%; top: ${area.hotspot.y}%;`}
-        >
-          <button type="button" class="hotspot" aria-label={area.name}>
-            <span class="hotspot-label">{area.shortName ?? area.name}</span>
-          </button>
-        </div>
-          {area.overlay && (
+        {area.interactionPolygon ? (
+          <svg
+            class="interaction-svg-layer"
+            viewBox="0 0 1672 941"
+            preserveAspectRatio="xMidYMid slice"
+            role="presentation"
+            aria-hidden="false"
+          >
+            <a
+              href={area.interactionUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="interaction-hit-link"
+              aria-label={area.name}
+            >
+              <polygon
+                id={`${area.id}-hit-area`}
+                class="interaction-hit-area"
+                points={area.interactionPolygon.points}
+              />
+            </a>
+            <g class="academy-callout" aria-hidden="true">
+              <path class="academy-callout-tail" d="M148,281 L172,281 L160,301 Z" />
+              <rect class="academy-callout-bg" x="48" y="213" width="212" height="70" rx="17" />
+              <text class="academy-callout-title" x="64" y="244">YaskCode Academy</text>
+              <text class="academy-callout-subtitle" x="64" y="266">Explorar</text>
+            </g>
+          </svg>
+        ) : area.hotspot?.x !== undefined && area.hotspot?.y !== undefined && (
+          <div
+            class="hotspot-item"
+            style={`left: ${area.hotspot.x}%; top: ${area.hotspot.y}%;`}
+          >
+            {area.interactionUrl ? (
+              <a
+                href={area.interactionUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hotspot"
+                aria-label={area.name}
+              >
+                <span class="hotspot-label">
+                  {area.shortName ?? area.name}
+                  <span class="hotspot-label-action">Explorar</span>
+                </span>
+              </a>
+            ) : (
+              <button type="button" class="hotspot" aria-label={area.name}>
+                <span class="hotspot-label">
+                  {area.shortName ?? area.name}
+                  <span class="hotspot-label-action">Próximamente</span>
+                </span>
+              </button>
+            )}
+          </div>
+        )}
+          {area.overlay && !area.interactionPolygon && (
             <div
               class="overlay-item"
-              style={`left: ${(area.overlay.x ?? area.hotspot.x)}%; top: ${(area.overlay.y ?? area.hotspot.y)}%;`}
+              style={`left: ${(area.overlay.x ?? area.hotspot?.x)}%; top: ${(area.overlay.y ?? area.hotspot?.y)}%;`}
             >
               <img
                 src={area.overlay.src}
@@ -52,21 +100,5 @@ import { campusAreas } from '../data/campus';
         </>
       ))}
     </div>
-    {campusAreas.map((area) => area.interactiveLayer && (
-      <div
-        class="interactive-layer"
-        style={`left: ${area.interactiveLayer.x}%; top: ${area.interactiveLayer.y}%; width: ${area.interactiveLayer.width};`}
-      >
-        <img
-          src={area.interactiveLayer.src}
-          alt=""
-          class="interactive-overlay"
-          aria-hidden="true"
-        />
-        <button type="button" class="interactive-hotspot" aria-label={area.name}>
-          <span class="hotspot-label">{area.shortName ?? area.name}</span>
-        </button>
-      </div>
-    ))}
   </div>
 </section>

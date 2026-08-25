@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1672 941" role="img" aria-labelledby="academy-title academy-desc">
+  <title id="academy-title">YaskCode Academy</title>
+  <desc id="academy-desc">Área interactiva responsive del edificio Academy, calibrada en el sistema de coordenadas del mapa maestro.</desc>
+  <polygon
+    id="academy-hit-area"
+    points="113,304 176,291 249,296 324,315 355,324 363,351 397,357 424,372 441,399 439,429 428,453 443,478 454,498 452,519 432,535 389,545 343,545 306,535 269,527 224,527 177,526 140,516 109,502 94,477 92,445 94,404 93,375 100,347"
+    fill="#ffffff"
+    fill-opacity="0.001"
+    pointer-events="all" />
+</svg>

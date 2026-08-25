@@ -52,13 +52,18 @@ h2 { max-width: 650px; margin-bottom: 1rem; font-size: clamp(2rem, 4vw, 3.5rem);
 .overlay-item { position: absolute; width: 0; height: 0; pointer-events: none; }
 .hotspot-overlay { position: absolute; bottom: 0; left: 0; z-index: 0; width: var(--overlay-width, min(15rem, 24vw)); max-width: none; opacity: 0; pointer-events: none; transform: translate(calc(-50% + var(--overlay-offset-x, 0)), var(--overlay-offset-y, 0)) scale(var(--overlay-scale, .98)); transform-origin: var(--overlay-origin, bottom center); filter: brightness(1) drop-shadow(0 0 0 rgba(23, 23, 27, 0)); transition: opacity .2s ease, transform .2s ease, filter .2s ease; }
 .hotspot-item:has(.hotspot:hover) + .overlay-item .hotspot-overlay, .hotspot-item:has(.hotspot:focus-visible) + .overlay-item .hotspot-overlay { opacity: 1; transform: translate(calc(-50% + var(--overlay-offset-x, 0)), calc(var(--overlay-offset-y, 0) - 4px)) scale(var(--overlay-scale, .98)); filter: brightness(1.1) drop-shadow(0 8px 8px rgba(23, 23, 27, .24)); }
-.hotspot-label { position: absolute; bottom: calc(100% + .75rem); left: .7rem; z-index: 1001; display: none; inline-size: max-content; max-inline-size: min(10rem, calc(100vw - 1.5rem)); max-height: 2.4em; overflow: hidden; padding-block: .25rem; padding-inline: .25rem; border: 1px solid var(--line); background: white; color: var(--ink); font: .75rem/1.2 system-ui, sans-serif; overflow-wrap: anywhere; pointer-events: none; text-align: left; text-overflow: ellipsis; white-space: normal; }
+.hotspot-label { position: absolute; bottom: calc(100% + .75rem); left: .7rem; z-index: 1001; display: none; inline-size: max-content; max-inline-size: min(10rem, calc(100vw - 1.5rem)); max-height: 3.8em; overflow: hidden; padding-block: .25rem; padding-inline: .25rem; border: 1px solid var(--line); background: white; color: var(--ink); font: .75rem/1.2 system-ui, sans-serif; overflow-wrap: anywhere; pointer-events: none; text-align: left; text-overflow: ellipsis; white-space: normal; }
+.hotspot-label-action { display: block; margin-top: .15rem; color: var(--accent); font-weight: 700; font-size: .68rem; letter-spacing: .04em; text-transform: uppercase; }
 .hotspot:hover .hotspot-label, .hotspot:focus-visible .hotspot-label { display: block; }
-.interactive-layer { position: absolute; z-index: 1000; pointer-events: none; }
-.interactive-overlay { display: block; width: 100%; height: auto; opacity: 0; pointer-events: none; filter: brightness(1) drop-shadow(0 0 0 rgba(23, 23, 27, 0)); transition: opacity .25s ease, transform .25s ease, filter .25s ease; }
-.interactive-hotspot { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; pointer-events: auto; cursor: pointer; }
-.interactive-hotspot:hover .hotspot-label, .interactive-hotspot:focus-visible .hotspot-label { display: block; }
-.interactive-layer:has(.interactive-hotspot:hover) .interactive-overlay, .interactive-layer:has(.interactive-hotspot:focus-visible) .interactive-overlay { opacity: 1; transform: translateY(-4px); filter: brightness(1.1) drop-shadow(0 8px 8px rgba(23, 23, 27, .24)); }
+.interaction-svg-layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.interaction-hit-area { fill: #ffffff; fill-opacity: .001; pointer-events: auto; cursor: pointer; }
+.interaction-hit-link, .interaction-hit-link:focus, .interaction-hit-link:focus-visible { outline: none; }
+.academy-callout { opacity: 0; pointer-events: none; transform: translateY(6px) scale(.97); transform-origin: 160px 250px; transition: opacity .22s ease, transform .22s ease; }
+.interaction-hit-link:hover ~ .academy-callout, .interaction-hit-link:focus-visible ~ .academy-callout { opacity: 1; transform: translateY(0) scale(1); }
+.academy-callout-bg, .academy-callout-tail { fill: rgba(255, 250, 253, .96); stroke: var(--accent); stroke-width: 2; filter: drop-shadow(0 4px 10px rgba(23, 23, 27, .18)); }
+.interaction-hit-link:focus-visible ~ .academy-callout .academy-callout-bg, .interaction-hit-link:focus-visible ~ .academy-callout .academy-callout-tail { filter: drop-shadow(0 0 6px rgba(230, 83, 143, .5)) drop-shadow(0 4px 10px rgba(23, 23, 27, .18)); }
+.academy-callout-title { font: 700 20px/1 system-ui, sans-serif; fill: var(--ink); }
+.academy-callout-subtitle { font: 600 13px/1 system-ui, sans-serif; fill: var(--accent); letter-spacing: .06em; text-transform: uppercase; }
 
 .campus-section { padding: 3.5rem 0 7rem; }
 .section-heading { margin-bottom: 2rem; }
@@ -99,5 +104,6 @@ h2 { max-width: 650px; margin-bottom: 1rem; font-size: clamp(2rem, 4vw, 3.5rem);
   html { scroll-behavior: auto; }
   .hotspot-overlay { transition: none; }
   .hotspot-item:has(.hotspot:hover) + .overlay-item .hotspot-overlay, .hotspot-item:has(.hotspot:focus-visible) + .overlay-item .hotspot-overlay { transform: translate(-50%, 0) scale(1); filter: drop-shadow(0 3px 3px rgba(23, 23, 27, .18)); }
-  .interactive-layer:has(.interactive-hotspot:hover) .interactive-overlay, .interactive-layer:has(.interactive-hotspot:focus-visible) .interactive-overlay { transform: none; filter: brightness(1) drop-shadow(0 3px 3px rgba(23, 23, 27, .18)); }
+  .academy-callout { transition: none; transform: none; }
+  .interaction-hit-link:hover ~ .academy-callout, .interaction-hit-link:focus-visible ~ .academy-callout { transform: none; }
 }
