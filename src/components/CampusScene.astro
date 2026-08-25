@@ -1,0 +1,172 @@
+---
+import { campusAreas } from '../data/campus';
+import { campusSceneNodes } from '../data/campusScene';
+
+const areaById = new Map(campusAreas.map((area) => [area.id, area]));
+
+const sceneDestinations = campusSceneNodes
+  .map((node) => {
+    const area = areaById.get(node.id);
+    if (!area) return undefined;
+
+    return {
+      area,
+      node,
+      href: area.interactionUrl ?? node.fallbackHref ?? '#campus'
+    };
+  })
+  .filter((item): item is NonNullable<typeof item> => Boolean(item))
+  .sort((a, b) => a.area.navOrder - b.area.navOrder);
+---
+
+<section class="campus-scene shell" aria-labelledby="scene-title">
+  <div class="scene-intro">
+    <h2 id="scene-title">Explora la nueva ciudad académica de Campus YaskCode</h2>
+    <p>
+      Recorre sus espacios con teclado o puntero. Cada destino abre una ruta de
+      aprendizaje, investigación o comunidad.
+    </p>
+  </div>
+
+  <div class="scene-stage" role="region" aria-label="Escena interactiva del Campus YaskCode">
+    <svg class="scene-decor" viewBox="0 0 1200 760" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="terracottaPath" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="#dfb991" />
+          <stop offset="100%" stop-color="#cfaa80" />
+        </linearGradient>
+        <linearGradient id="stonePath" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="#eceae4" />
+          <stop offset="100%" stop-color="#dcd9d0" />
+        </linearGradient>
+        <linearGradient id="pathHighlight" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%" stop-color="#efd0ab" stop-opacity=".62" />
+          <stop offset="100%" stop-color="#f5dec0" stop-opacity=".15" />
+        </linearGradient>
+        <linearGradient id="waterTone" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="#c7e4f2" />
+          <stop offset="100%" stop-color="#9fc6db" />
+        </linearGradient>
+        <linearGradient id="waterEdge" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="#f1f6f9" stop-opacity=".95" />
+          <stop offset="100%" stop-color="#e8f0f4" stop-opacity=".8" />
+        </linearGradient>
+        <linearGradient id="plazaStone" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="#f2eee4" />
+          <stop offset="100%" stop-color="#e2dbcd" />
+        </linearGradient>
+      </defs>
+
+      <path class="scene-road scene-road-main" d="M 24 544 C 166 484, 312 494, 426 458 C 558 416, 708 430, 842 390 C 974 350, 1070 322, 1182 278" />
+      <path class="scene-road scene-road-upper" d="M 88 118 C 226 198, 320 246, 448 250 C 572 254, 688 230, 818 246 C 948 262, 1048 338, 1136 476" />
+      <path class="scene-road scene-road-lower" d="M 98 648 C 254 610, 378 612, 542 622 C 700 632, 858 624, 1098 568" />
+      <path class="scene-road scene-road-connector" d="M 474 250 C 504 316, 548 358, 624 404 C 676 436, 706 486, 702 554 C 700 586, 688 610, 656 628" />
+      <path class="scene-road scene-road-connector" d="M 816 246 C 770 302, 734 344, 694 396" />
+      <path class="scene-road scene-road-connector" d="M 356 462 C 386 532, 444 576, 540 622" />
+
+      <path class="scene-stone-path" d="M 210 516 C 286 500, 336 486, 390 460" />
+      <path class="scene-stone-path" d="M 638 430 C 586 462, 540 488, 494 524" />
+      <path class="scene-stone-path" d="M 760 400 C 728 430, 706 460, 684 498" />
+      <path class="scene-stone-path" d="M 866 388 C 884 448, 906 496, 952 544" />
+      <path class="scene-stone-path" d="M 564 620 C 602 636, 648 642, 706 640" />
+
+      <path class="scene-water" d="M 338 246 C 378 214, 462 212, 502 246 C 534 272, 536 322, 500 350 C 458 382, 382 382, 338 350 C 304 324, 306 274, 338 246 Z" />
+      <path class="scene-water-edge" d="M 338 246 C 378 214, 462 212, 502 246 C 534 272, 536 322, 500 350 C 458 382, 382 382, 338 350 C 304 324, 306 274, 338 246 Z" />
+      <line class="scene-bridge" x1="545" y1="414" x2="585" y2="382" />
+      <line class="scene-bridge" x1="468" y1="470" x2="506" y2="450" />
+
+      <g class="scene-grove">
+        <ellipse class="scene-shrub" cx="142" cy="304" rx="14" ry="8" />
+        <circle class="scene-tree" cx="134" cy="292" r="8" />
+        <circle class="scene-tree" cx="155" cy="300" r="7" />
+        <circle class="scene-tree" cx="172" cy="286" r="7" />
+      </g>
+      <g class="scene-grove">
+        <ellipse class="scene-shrub" cx="276" cy="356" rx="16" ry="8" />
+        <circle class="scene-tree" cx="262" cy="344" r="8" />
+        <circle class="scene-tree" cx="282" cy="338" r="7" />
+        <path class="scene-palm" d="M302 358 L302 336 M302 338 C294 336, 292 330, 298 326 M302 338 C312 334, 314 328, 308 324" />
+      </g>
+      <g class="scene-grove">
+        <ellipse class="scene-shrub" cx="778" cy="300" rx="16" ry="8" />
+        <circle class="scene-tree" cx="764" cy="288" r="8" />
+        <circle class="scene-tree" cx="786" cy="292" r="7" />
+        <circle class="scene-tree" cx="804" cy="284" r="7" />
+      </g>
+      <g class="scene-grove">
+        <ellipse class="scene-shrub" cx="928" cy="520" rx="18" ry="8" />
+        <path class="scene-palm" d="M912 520 L912 498 M912 502 C902 500, 900 492, 906 488 M912 502 C922 498, 924 492, 918 488" />
+        <circle class="scene-tree" cx="936" cy="510" r="7" />
+        <circle class="scene-tree" cx="954" cy="504" r="7" />
+      </g>
+      <g class="scene-grove">
+        <ellipse class="scene-shrub" cx="632" cy="660" rx="20" ry="9" />
+        <circle class="scene-tree" cx="614" cy="648" r="8" />
+        <circle class="scene-tree" cx="638" cy="646" r="7" />
+        <circle class="scene-tree" cx="658" cy="650" r="7" />
+      </g>
+
+      <g class="scene-lamp" transform="translate(604 454)">
+        <line x1="0" y1="0" x2="0" y2="14" />
+        <circle cx="0" cy="-2" r="2.3" />
+      </g>
+      <g class="scene-lamp" transform="translate(686 528)">
+        <line x1="0" y1="0" x2="0" y2="14" />
+        <circle cx="0" cy="-2" r="2.3" />
+      </g>
+    </svg>
+
+    <div class="scene-nodes">
+      {sceneDestinations.map(({ area, node, href }) => (
+        <a
+          href={href}
+          class={`scene-node ${node.kind === 'building' ? 'scene-node-building' : 'scene-node-vector'}`}
+          style={`--x: ${node.x}%; --y: ${node.y}%; --node-width: ${node.width}; --layer: ${node.layer};`}
+          aria-label={`${area.name}. ${area.description}. Explorar destino.`}
+          target={area.interactionUrl ? '_blank' : undefined}
+          rel={area.interactionUrl ? 'noopener noreferrer' : undefined}
+        >
+          <span class="scene-node-hit" aria-hidden="true"></span>
+
+          {node.kind === 'building' ? (
+            <>
+              <span class={`scene-parcel ${node.id === 'academy' ? 'scene-parcel-academy' : ''}`} aria-hidden="true"></span>
+              <img src={node.imageSrc} alt={node.imageAlt} class="scene-building" loading="lazy" decoding="async" />
+            </>
+          ) : (
+            <span class="scene-vector-wrap" aria-hidden="true">
+              <span class={`scene-vector scene-vector-${node.vectorKind ?? 'plaza'}`}>
+                <svg viewBox="0 0 100 100" focusable="false" aria-hidden="true">
+                {node.vectorKind === 'gate' ? (
+                  <>
+                    <path d="M12 74 L24 74 L24 40 L37 40 L37 74 L63 74 L63 40 L76 40 L76 74 L88 74" />
+                    <path d="M18 40 Q50 10 82 40" />
+                    <path d="M50 26 L50 74" />
+                  </>
+                ) : (
+                  <>
+                    <circle cx="50" cy="50" r="30" />
+                    <circle cx="50" cy="50" r="12" />
+                    <path d="M50 18 L50 2" />
+                    <path d="M82 50 L98 50" />
+                    <path d="M50 82 L50 98" />
+                    <path d="M18 50 L2 50" />
+                  </>
+                )}
+                </svg>
+              </span>
+              <span class="scene-vector-caption">
+                {node.id === 'entrada-principal' ? 'Entrada' : 'Conexiones'}
+              </span>
+            </span>
+          )}
+
+          <span class="scene-node-pill">
+            <strong>{area.shortName ?? area.name}</strong>
+            <span>EXPLORAR</span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
