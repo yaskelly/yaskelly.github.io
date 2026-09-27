@@ -15,9 +15,9 @@ export const campusSceneNodes: CampusSceneNode[] = [
   {
     id: 'academy',
     kind: 'building',
-    x: 14,
-    y: 24,
-    width: 'clamp(10.4rem, 15.2vw, 14.2rem)',
+    x: 12.7,
+    y: 19.4,
+    width: 'clamp(11.2rem, 13.7vw, 14.9rem)',
     layer: 6,
     imageSrc: '/images/overlays/academy.png',
     imageAlt: 'Edificio de YaskCode Academy.'
@@ -25,9 +25,9 @@ export const campusSceneNodes: CampusSceneNode[] = [
   {
     id: 'posgrado-luz',
     kind: 'building',
-    x: 30,
-    y: 18,
-    width: 'clamp(8.5rem, 11.8vw, 11.8rem)',
+    x: 29.9,
+    y: 18.9,
+    width: 'clamp(10rem, 12.8vw, 14rem)',
     layer: 6,
     imageSrc: '/images/overlays/posgrado-luz.png',
     imageAlt: 'Edificio de Posgrado LUZ.'
@@ -35,9 +35,9 @@ export const campusSceneNodes: CampusSceneNode[] = [
   {
     id: 'cti-pregrado',
     kind: 'building',
-    x: 44,
-    y: 27,
-    width: 'clamp(9.2rem, 13vw, 13rem)',
+    x: 43.4,
+    y: 27.9,
+    width: 'clamp(10.4rem, 12.6vw, 13.7rem)',
     layer: 5,
     imageSrc: '/images/overlays/cti-pregrado.png',
     imageAlt: 'Edificio de CTI Pregrado.'
@@ -45,9 +45,9 @@ export const campusSceneNodes: CampusSceneNode[] = [
   {
     id: 'research',
     kind: 'building',
-    x: 59,
-    y: 20,
-    width: 'clamp(9rem, 12.5vw, 12.8rem)',
+    x: 59.2,
+    y: 18.6,
+    width: 'clamp(10.2rem, 13.4vw, 14.6rem)',
     layer: 6,
     imageSrc: '/images/overlays/research.png',
     imageAlt: 'Edificio de Research.'
@@ -55,9 +55,9 @@ export const campusSceneNodes: CampusSceneNode[] = [
   {
     id: 'laboratory',
     kind: 'building',
-    x: 76,
-    y: 27,
-    width: 'clamp(9.5rem, 13.2vw, 13.3rem)',
+    x: 79.5,
+    y: 25,
+    width: 'clamp(10.6rem, 13.6vw, 14.8rem)',
     layer: 6,
     imageSrc: '/images/overlays/lab.png',
     imageAlt: 'Edificio de Laboratory.'
@@ -65,9 +65,9 @@ export const campusSceneNodes: CampusSceneNode[] = [
   {
     id: 'library',
     kind: 'building',
-    x: 21,
-    y: 47,
-    width: 'clamp(9rem, 12vw, 12rem)',
+    x: 16.4,
+    y: 49,
+    width: 'clamp(10.3rem, 13.8vw, 14.8rem)',
     layer: 5,
     imageSrc: '/images/overlays/library.png',
     imageAlt: 'Edificio de Library.'
@@ -75,9 +75,9 @@ export const campusSceneNodes: CampusSceneNode[] = [
   {
     id: 'community',
     kind: 'building',
-    x: 37,
-    y: 50,
-    width: 'clamp(8.5rem, 11.8vw, 12rem)',
+    x: 35.2,
+    y: 58.8,
+    width: 'clamp(10rem, 12.5vw, 13.7rem)',
     layer: 5,
     imageSrc: '/images/overlays/community.png',
     imageAlt: 'Edificio de Community.'
@@ -86,8 +86,8 @@ export const campusSceneNodes: CampusSceneNode[] = [
     id: 'auditorio',
     kind: 'building',
     x: 53,
-    y: 48,
-    width: 'clamp(9.7rem, 13.6vw, 13.9rem)',
+    y: 50.1,
+    width: 'clamp(10.8rem, 13.4vw, 14.7rem)',
     layer: 6,
     imageSrc: '/images/overlays/anfiteatro-moderno.png',
     imageAlt: 'Edificio del Auditorio.'
@@ -95,9 +95,9 @@ export const campusSceneNodes: CampusSceneNode[] = [
   {
     id: 'parque-innovacion-tecnologia',
     kind: 'building',
-    x: 70,
-    y: 50,
-    width: 'clamp(9.5rem, 13vw, 13.5rem)',
+    x: 71,
+    y: 57,
+    width: 'clamp(10.7rem, 13.2vw, 14.5rem)',
     layer: 5,
     imageSrc: '/images/overlays/yaskcode-construccion.png',
     imageAlt: 'Edificio de Parque Tecnologico y YaskCode Build.'
@@ -105,9 +105,9 @@ export const campusSceneNodes: CampusSceneNode[] = [
   {
     id: 'gdg-caracas',
     kind: 'building',
-    x: 86,
-    y: 53,
-    width: 'clamp(8.3rem, 11.3vw, 11.6rem)',
+    x: 89.6,
+    y: 56.9,
+    width: 'clamp(9.7rem, 11.9vw, 13rem)',
     layer: 4,
     imageSrc: '/images/overlays/gdg-caracas.png',
     imageAlt: 'Edificio de GDG Caracas.'
@@ -115,9 +115,9 @@ export const campusSceneNodes: CampusSceneNode[] = [
   {
     id: 'wtm-technovation',
     kind: 'building',
-    x: 33,
-    y: 73,
-    width: 'clamp(8.9rem, 12.4vw, 12.5rem)',
+    x: 30.2,
+    y: 77.9,
+    width: 'clamp(10.3rem, 12.9vw, 14rem)',
     layer: 5,
     imageSrc: '/images/overlays/wtm-technovation.png',
     imageAlt: 'Edificio de WTM y Technovation.'
@@ -125,9 +125,9 @@ export const campusSceneNodes: CampusSceneNode[] = [
   {
     id: 'smart-learning',
     kind: 'building',
-    x: 50,
-    y: 74,
-    width: 'clamp(8.7rem, 12vw, 12.3rem)',
+    x: 48.8,
+    y: 76.1,
+    width: 'clamp(10.1rem, 12.6vw, 13.8rem)',
     layer: 5,
     imageSrc: '/images/overlays/smart-learning.png',
     imageAlt: 'Edificio de Smart Learning.'
@@ -135,9 +135,9 @@ export const campusSceneNodes: CampusSceneNode[] = [
   {
     id: 'casa-yaskelly',
     kind: 'building',
-    x: 67,
-    y: 74,
-    width: 'clamp(9.3rem, 13vw, 13.1rem)',
+    x: 67.4,
+    y: 77.5,
+    width: 'clamp(10.8rem, 13.1vw, 14.2rem)',
     layer: 6,
     imageSrc: '/images/overlays/home.yaskellyyedra.png',
     imageAlt: 'Casa personal de Yaskelly.'
@@ -145,9 +145,9 @@ export const campusSceneNodes: CampusSceneNode[] = [
   {
     id: 'entrada-principal',
     kind: 'vector',
-    x: 12,
-    y: 74,
-    width: 'clamp(4.6rem, 6.3vw, 6.2rem)',
+    x: 7.6,
+    y: 74.3,
+    width: 'clamp(4.6rem, 6.1vw, 6rem)',
     layer: 4,
     vectorKind: 'gate',
     fallbackHref: '#about'
@@ -155,9 +155,9 @@ export const campusSceneNodes: CampusSceneNode[] = [
   {
     id: 'conexiones-profesionales',
     kind: 'vector',
-    x: 88,
-    y: 74,
-    width: 'clamp(4.6rem, 6.3vw, 6.2rem)',
+    x: 93.4,
+    y: 74.7,
+    width: 'clamp(4.6rem, 6.1vw, 6rem)',
     layer: 4,
     vectorKind: 'plaza',
     fallbackHref: '#contact'
