@@ -263,6 +263,23 @@ h2 { max-width: 650px; margin-bottom: 1rem; font-size: clamp(2rem, 4vw, 3.5rem);
   pointer-events: none;
 }
 
+.scene-node[data-node-id='academy'] .scene-node-hit {
+  /* The image sets node height, including max-height. Contain keeps its full
+     height: lift the oval by the PNG's 223/1402 bottom margin, retaining -3%. */
+  bottom: calc(-3% + 15.905849%);
+}
+
+.scene-node[data-node-id='library'] .scene-node-hit {
+  bottom: calc(-3% + 18.9793%);
+}
+
+.scene-node[data-node-id='community'] .scene-node-hit {
+  bottom: calc(-3% + 19.6172%);
+}
+
+.scene-node[data-node-id='auditorio'] .scene-node-hit {
+  bottom: calc(-3% + 18.8198%);
+}
 
 .scene-building {
   position: relative;
@@ -275,6 +292,10 @@ h2 { max-width: 650px; margin-bottom: 1rem; font-size: clamp(2rem, 4vw, 3.5rem);
   filter: drop-shadow(0 4px 8px rgba(42, 32, 18, .26));
   transform-origin: center bottom;
   transition: filter .22s ease;
+}
+
+.scene-node[data-node-id='academy'] .scene-building {
+  max-height: clamp(5.832rem, 16.74vw, 13.284rem);
 }
 
 .scene-node-pill {

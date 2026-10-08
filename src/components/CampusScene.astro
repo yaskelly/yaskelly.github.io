@@ -42,6 +42,7 @@ const sceneDestinations = campusSceneNodes
       {sceneDestinations.map(({ area, node, href }) => (
         <a
           href={href}
+          data-node-id={node.id}
           class={`scene-node ${node.kind === 'building' ? 'scene-node-building' : 'scene-node-vector'}`}
           style={`--x: ${node.x}%; --y: ${node.y}%; --node-width: ${node.width}; --layer: ${node.layer};`}
           aria-label={`${area.name}. ${area.description}. Explorar destino.`}

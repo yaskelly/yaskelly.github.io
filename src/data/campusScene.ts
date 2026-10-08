@@ -17,7 +17,7 @@ export const campusSceneNodes: CampusSceneNode[] = [
     kind: 'building',
     x: 12.7,
     y: 19.4,
-    width: 'clamp(11.2rem, 13.7vw, 14.9rem)',
+    width: 'clamp(12.096rem, 14.796vw, 16.092rem)',
     layer: 6,
     imageSrc: '/images/overlays/academy.png',
     imageAlt: 'Edificio de YaskCode Academy.'
