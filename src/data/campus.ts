@@ -155,7 +155,8 @@ export const campusAreas: CampusArea[] = [
     overlay: {
       src: '/images/overlays/library.png',
       alt: 'Edificio de Library del Campus YaskCode.'
-    }
+    },
+    interactionUrl: 'https://github.com/yaskelly'
   },
   {
     id: 'community',
