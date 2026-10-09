@@ -22,6 +22,15 @@ const cardTitles: Record<string, string> = {
   'casa-yaskelly': 'Casa de Yaskelly',
   'entrada-principal': 'Entrada principal'
 };
+const cardTranslations: Record<string, string> = {
+  'posgrado-luz': 'Graduate Studies',
+  'cti-pregrado': 'Undergraduate Thesis Repository',
+  'conexiones-profesionales': 'Professional Connections',
+  auditorio: 'Talks & Videos',
+  'parque-innovacion-tecnologia': 'Innovation & Technology Park',
+  'casa-yaskelly': 'About Yaskelly',
+  'entrada-principal': 'Welcome & Navigation'
+};
 const cardDescriptions: Record<string, string> = {
   academy: 'Aprende ingeniería de software y computación mediante rutas formativas, práctica y proyectos.',
   'posgrado-luz': 'Formación avanzada, recursos, acompañamiento académico, proyectos y trabajos de investigación de estudiantes de posgrado de la Universidad del Zulia.',
@@ -81,6 +90,37 @@ const iconPaths: Record<string, string> = {
 
     <CampusScene />
 
+    <section class="author-section shell" aria-labelledby="author-title">
+      <h2 id="author-title">
+        Creado por <a href="https://www.yaskellyyedra.com/about" aria-description="Conoce mi trayectoria">Yaskelly Yedra<span class="author-tooltip" aria-hidden="true">Conoce mi trayectoria</span></a>
+      </h2>
+      <p>
+        Profesora e investigadora en Computación en la Universidad del Zulia.
+        Campus YaskCode conecta docencia, investigación, proyectos abiertos y
+        comunidades tecnológicas para que el aprendizaje se convierta en práctica
+        e impacto real.
+      </p>
+    </section>
+
+    <section class="english-guide shell" id="english-guide" lang="en" aria-labelledby="english-guide-title">
+      <h2 id="english-guide-title">English guide</h2>
+      <p>
+        Yaskelly Yedra is a Computer Science professor and researcher at
+        Universidad del Zulia, Venezuela. She created Campus YaskCode to connect
+        teaching, research, open projects and technology communities.
+      </p>
+      <p>
+        Explore the campus through its buildings or the “Áreas del Campus”
+        cards below. Discover learning resources, student projects, research,
+        academic work and community initiatives.
+      </p>
+      <p>
+        Use a mouse, touch or keyboard to explore. With a keyboard, press Tab
+        to move between controls and Enter to activate them. Research and
+        Conexiones offer additional links; press Escape to close their panels.
+      </p>
+    </section>
+
     <section class="campus-section shell" id="campus" aria-labelledby="campus-title">
       <div class="section-heading">
         <div class="section-heading-copy">
@@ -111,8 +151,12 @@ const iconPaths: Record<string, string> = {
               aria-labelledby={!href ? `card-title-${area.id}` : undefined}
             >
               {area.status && !isBuildCard && !isSmartLearningCard && <span class="status">{area.status}</span>}
-              <h3 id={`card-title-${area.id}`}>{title}</h3>
+              <h3 id={`card-title-${area.id}`}>
+                {title}{cardTranslations[area.id] && <> / <span class="area-card-translation" lang="en">{cardTranslations[area.id]}</span></>}
+              </h3>
               {area.id === 'cti-pregrado' && <p class="area-card-subtitle">Comisión de Trabajo de Investigación</p>}
+              {area.id === 'gdg-caracas' && <p class="area-card-subtitle" lang="en">Google Developer Groups · Caracas</p>}
+              {area.id === 'wtm-technovation' && <p class="area-card-subtitle" lang="en">Women Techmakers + Technovation</p>}
               <p>{description}</p>
               {links && (
                 <ul class="area-card-links">
@@ -137,8 +181,8 @@ const iconPaths: Record<string, string> = {
     <section class="contact-section" id="contact" aria-labelledby="contact-title">
       <div class="shell contact-inner">
         <div>
-          <p class="eyebrow">CONTACTO</p>
           <h2 id="contact-title">El campus empieza con una conversación.</h2>
+          <p class="contact-details">Para consultas sobre docencia, investigación, charlas y colaboración académica. <a href="mailto:yyedra@fec.luz.edu.ve">yyedra@fec.luz.edu.ve</a></p>
         </div>
         <a class="button button-light" href="mailto:yyedra@fec.luz.edu.ve">Contactar a Yaskelly Yedra</a>
       </div>
