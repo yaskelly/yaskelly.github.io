@@ -185,7 +185,8 @@ export const campusAreas: CampusArea[] = [
     overlay: {
       src: '/images/overlays/anfiteatro-moderno.png',
       alt: 'Auditorio del Campus YaskCode.'
-    }
+    },
+    interactionUrl: 'https://www.youtube.com/@yaskcode'
   },
   {
     id: 'parque-innovacion-tecnologia',
@@ -201,7 +202,7 @@ export const campusAreas: CampusArea[] = [
       src: '/images/overlays/yaskcode-construccion.png',
       alt: 'Zona en construcción del Parque de Innovación y Tecnología.'
     },
-    interactionUrl: 'https://github.com/YaskCode-smart-learning'
+    interactionUrl: 'https://github.com/YaskCode-build'
   },
   {
     id: 'gdg-caracas',
@@ -230,7 +231,8 @@ export const campusAreas: CampusArea[] = [
     overlay: {
       src: '/images/overlays/wtm-technovation.png',
       alt: 'Edificio de WTM y Technovation.'
-    }
+    },
+    interactionUrl: 'https://www.technovation.org/women-techmakers'
   },
   {
     id: 'smart-learning',

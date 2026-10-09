@@ -4,6 +4,36 @@ import { campusSceneNodes } from '../data/campusScene';
 
 const areaById = new Map(campusAreas.map((area) => [area.id, area]));
 
+const destinationPanels = [
+  {
+    id: 'conexiones-profesionales',
+    title: 'Conexiones',
+    links: [
+      { name: 'LinkedIn', href: 'https://www.linkedin.com/in/yaskelly/', icon: 'linkedin' },
+      { name: 'Medium', href: 'https://medium.com/@yaskelly/', icon: 'medium' },
+      { name: 'Instagram', href: 'https://www.instagram.com/yaskelly', icon: 'instagram' }
+    ]
+  },
+  {
+    id: 'research',
+    title: 'Research',
+    links: [
+      { name: 'GitHub', href: 'https://github.com/YaskCode-research', icon: 'github' },
+      { name: 'Google Scholar', href: 'https://scholar.google.com/citations?user=zySpQB0AAAAJ', icon: 'scholar' },
+      { name: 'ORCID', href: 'https://orcid.org/0009-0004-4290-120X', icon: 'orcid' }
+    ]
+  }
+];
+const panelNodeIds = new Set(destinationPanels.map((panel) => panel.id));
+const iconPaths: Record<string, string> = {
+  linkedin: 'M3 3h18v18H3Z M7 10v7 M7 7h.01 M11 17v-7 M11 13c0-4 6-4 6 0v4',
+  medium: 'M13 12a6 6 0 1 1-12 0 6 6 0 0 1 12 0 M20 12a3 6 0 1 1-6 0 3 6 0 0 1 6 0 M23 12a1 5.5 0 1 1-2 0 1 5.5 0 0 1 2 0',
+  instagram: 'M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5Z M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0 M17.5 6.5h.01',
+  github: 'M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z',
+  scholar: 'M2 9l10-6 10 6-10 6-10-6Z M6 12v6q6 5 12 0v-6 M22 9v9',
+  orcid: 'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z M8 10v7 M8 7h.01 M12 7v10h2a5 5 0 0 0 0-10h-2Z'
+};
+
 const sceneDestinations = campusSceneNodes
   .map((node) => {
     const area = areaById.get(node.id);
@@ -20,17 +50,12 @@ const sceneDestinations = campusSceneNodes
 ---
 
 <section class="campus-scene shell" aria-labelledby="scene-title">
-  <div class="scene-intro">
-    <h2 id="scene-title">Explora la nueva ciudad académica de Campus YaskCode</h2>
-    <p>
-      Recorre sus espacios con teclado o puntero. Cada destino abre una ruta de
-      aprendizaje, investigación o comunidad.
-    </p>
-  </div>
+  <h2 id="scene-title" class="sr-only">Mapa del Campus YaskCode</h2>
 
+  <div class="scene-map">
   <div class="scene-stage" role="region" aria-label="Escena interactiva del Campus YaskCode">
     <img
-      src="/images/campus-tropical-innovation-bg-v1.png"
+      src="/images/campus-tropical-innovation-bg-v2.png"
       alt=""
       aria-hidden="true"
       class="scene-bg"
@@ -39,15 +64,43 @@ const sceneDestinations = campusSceneNodes
     />
 
     <div class="scene-nodes">
-      {sceneDestinations.map(({ area, node, href }) => (
-        <a
-          href={href}
+  <a
+  href="#about"
+  class="scene-node scene-node-vector"
+  style="--x: 93.4%; --y: 74.3%; --node-width: clamp(5.29rem, 7.015vw, 6.9rem); --layer: 4; opacity: 1; visibility: visible;"
+  aria-label="Entrada derecha de Campus YaskCode. Conocer el proyecto."
+>
+   <span class="scene-vector-wrap">
+      <img
+        src="/images/overlays/entrada-yaskcode-v2.png"
+        alt=""
+        class="scene-building"
+        loading="lazy"
+        decoding="async"
+      />
+    </span>
+    <span class="scene-node-pill">
+    <strong>Entrada principal</strong>
+    <span>EXPLORAR</span>
+</span>
+   </a>
+      {sceneDestinations.map(({ area, node, href }) => {
+        const opensPanel = panelNodeIds.has(node.id);
+        const NodeControl = opensPanel ? 'button' : 'a';
+        return (
+        <NodeControl
+          href={opensPanel ? undefined : href}
+          type={opensPanel ? 'button' : undefined}
+          id={opensPanel ? `scene-control-${node.id}` : undefined}
+          data-scene-panel={opensPanel ? `scene-panel-${node.id}` : undefined}
+          aria-controls={opensPanel ? `scene-panel-${node.id}` : undefined}
+          aria-expanded={opensPanel ? 'false' : undefined}
           data-node-id={node.id}
           class={`scene-node ${node.kind === 'building' ? 'scene-node-building' : 'scene-node-vector'}`}
           style={`--x: ${node.x}%; --y: ${node.y}%; --node-width: ${node.width}; --layer: ${node.layer};`}
-          aria-label={`${area.name}. ${area.description}. Explorar destino.`}
-          target={area.interactionUrl ? '_blank' : undefined}
-          rel={area.interactionUrl ? 'noopener noreferrer' : undefined}
+          aria-label={`${area.name}. ${area.description}. ${opensPanel ? 'Abrir enlaces.' : 'Explorar destino.'}`}
+          target={!opensPanel && area.interactionUrl ? '_blank' : undefined}
+          rel={!opensPanel && area.interactionUrl ? 'noopener noreferrer' : undefined}
         >
           <span class="scene-node-hit" aria-hidden="true"></span>
 
@@ -55,6 +108,9 @@ const sceneDestinations = campusSceneNodes
             <img src={node.imageSrc} alt={node.imageAlt} class="scene-building" loading="lazy" decoding="async" />
           ) : (
             <span class="scene-vector-wrap" aria-hidden="true">
+              {node.imageSrc ? (
+                <img src={node.imageSrc} alt="" class="scene-building" loading="lazy" decoding="async" />
+              ) : (
               <span class={`scene-vector scene-vector-${node.vectorKind ?? 'plaza'}`}>
                 <svg viewBox="0 0 100 100" focusable="false" aria-hidden="true">
                 {node.vectorKind === 'gate' ? (
@@ -75,6 +131,7 @@ const sceneDestinations = campusSceneNodes
                 )}
                 </svg>
               </span>
+              )}
               <span class="scene-vector-caption">
                 {node.id === 'entrada-principal' ? 'Entrada' : 'Conexiones'}
               </span>
@@ -85,8 +142,176 @@ const sceneDestinations = campusSceneNodes
             <strong>{area.shortName ?? area.name}</strong>
             <span>EXPLORAR</span>
           </span>
-        </a>
-      ))}
+        </NodeControl>
+        );
+      })}
     </div>
   </div>
+
+  <div class="scene-panel-area">
+    {destinationPanels.map((panel) => (
+      <section
+        id={`scene-panel-${panel.id}`}
+        class="scene-destination-panel"
+        aria-label={`Enlaces de ${panel.title}`}
+        hidden
+      >
+        <ul class="scene-panel-links">
+          {panel.links.map((link) => (
+            <li>
+              <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={`${link.name} (abre en otra pestaña)`}>
+                <svg viewBox="0 0 24 24" data-icon={link.icon} aria-hidden="true" focusable="false">
+                  {link.icon === 'instagram' && (
+                    <defs>
+                      <linearGradient id="scene-instagram-gradient" x1="0" y1="1" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#f59e0b" />
+                        <stop offset="45%" stop-color="#db2777" />
+                        <stop offset="100%" stop-color="#7c3aed" />
+                      </linearGradient>
+                    </defs>
+                  )}
+                  <path d={iconPaths[link.icon]} />
+                </svg>
+                <span class="scene-icon-label" aria-hidden="true">{link.name}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <button type="button" class="scene-panel-close" data-scene-panel-close aria-label={`Cerrar panel de ${panel.title}`}>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 6 12 12 M18 6 6 18" /></svg>
+          <span class="scene-icon-label" aria-hidden="true">Cerrar</span>
+        </button>
+      </section>
+    ))}
+  </div>
+  </div>
 </section>
+
+<script>
+  const scene = document.querySelector<HTMLElement>('.campus-scene');
+  if (scene) {
+    let active: { control: HTMLButtonElement; panel: HTMLElement } | null = null;
+    const map = scene.querySelector<HTMLElement>('.scene-map');
+    const stage = scene.querySelector<HTMLElement>('.scene-stage');
+    const desktop = window.matchMedia('(min-width: 1200px)');
+    const connectionsDesktop = window.matchMedia('(min-width: 761px)');
+    const imageBounds = new WeakMap<HTMLImageElement, number[]>();
+
+    function visibleImageRect(image: HTMLImageElement) {
+      const rect = image.getBoundingClientRect();
+      if (!image.complete || !image.naturalWidth) return rect;
+      let alphaBounds = imageBounds.get(image);
+      if (!alphaBounds) {
+        // Same-origin PNGs include transparent padding: measure the artwork,
+        // rather than excluding that empty space from possible panel positions.
+        const canvas = document.createElement('canvas');
+        canvas.width = canvas.height = 96;
+        const context = canvas.getContext('2d', { willReadFrequently: true });
+        if (!context) return rect;
+        try {
+          context.drawImage(image, 0, 0, 96, 96);
+          const pixels = context.getImageData(0, 0, 96, 96).data;
+          let left = 96, top = 96, right = 0, bottom = 0;
+          for (let y = 0; y < 96; y++) for (let x = 0; x < 96; x++) {
+            if (pixels[(y * 96 + x) * 4 + 3] > 0) {
+              left = Math.min(left, x); top = Math.min(top, y);
+              right = Math.max(right, x + 1); bottom = Math.max(bottom, y + 1);
+            }
+          }
+          alphaBounds = [left / 96, top / 96, right / 96, bottom / 96];
+          imageBounds.set(image, alphaBounds);
+        } catch {
+          return rect;
+        }
+      }
+      const scale = Math.min(rect.width / image.naturalWidth, rect.height / image.naturalHeight);
+      const width = image.naturalWidth * scale, height = image.naturalHeight * scale;
+      const left = rect.left + (rect.width - width) / 2;
+      const top = rect.top + (rect.height - height) / 2;
+      return { left: left + width * alphaBounds[0], top: top + height * alphaBounds[1],
+        right: left + width * alphaBounds[2], bottom: top + height * alphaBounds[3] };
+    }
+
+    function positionPanel() {
+      if (!active || !map || !stage) return;
+      const { control, panel } = active;
+      const isConnections = control.dataset.nodeId === 'conexiones-profesionales';
+      map.classList.toggle('scene-connections-active', isConnections);
+      if (isConnections) {
+        map.classList.toggle('scene-panel-outside', !connectionsDesktop.matches);
+        if (!connectionsDesktop.matches) return;
+        const image = control.querySelector<HTMLImageElement>('.scene-building');
+        const sculpture = image ? visibleImageRect(image) : control.getBoundingClientRect();
+        const origin = map.getBoundingClientRect();
+        // This panel has one node anchor; it never searches for another map slot.
+        panel.style.left = `${sculpture.right + 10 - origin.left}px`;
+        panel.style.top = `${(sculpture.top + sculpture.bottom - panel.offsetHeight) / 2 - origin.top}px`;
+        return;
+      }
+      map.classList.toggle('scene-panel-outside', !desktop.matches);
+      if (!desktop.matches) return;
+
+      const origin = map.getBoundingClientRect();
+      const image = control.querySelector<HTMLImageElement>('.scene-building');
+      const building = image ? visibleImageRect(image) : control.getBoundingClientRect();
+      // Research uses its own visible image as the anchor, just like Conexiones.
+      panel.style.left = `${building.right + 10 - origin.left}px`;
+      panel.style.top = `${(building.top + building.bottom - panel.offsetHeight) / 2 - origin.top}px`;
+    }
+
+    function closePanel(restoreFocus = false) {
+      if (!active) return;
+      const { control, panel } = active;
+      active = null;
+      panel.hidden = true;
+      control.setAttribute('aria-expanded', 'false');
+      if (restoreFocus) control.focus({ preventScroll: true });
+    }
+
+    function openPanel(control: HTMLButtonElement, focusLinks = false) {
+      const panel = document.getElementById(control.dataset.scenePanel ?? '');
+      if (!panel) return;
+      if (active?.control !== control) {
+        closePanel();
+        active = { control, panel };
+        panel.hidden = false;
+        control.setAttribute('aria-expanded', 'true');
+      }
+      positionPanel();
+      // Hover keeps focus where it was; deliberate activation enters the links.
+      if (focusLinks) panel.querySelector<HTMLAnchorElement>('a')?.focus();
+    }
+
+    scene.querySelectorAll<HTMLButtonElement>('button[data-scene-panel]').forEach((control) => {
+      control.addEventListener('click', () => openPanel(control, true));
+      if (control.dataset.nodeId === 'conexiones-profesionales') {
+        control.addEventListener('pointerenter', (event) => {
+          // Do not replace a panel while someone is using its keyboard focus.
+          if (event.pointerType === 'mouse' && !active?.panel.contains(document.activeElement)) {
+            openPanel(control);
+          }
+        });
+      }
+    });
+
+    scene.querySelectorAll<HTMLButtonElement>('[data-scene-panel-close]').forEach((button) => {
+      button.addEventListener('click', () => closePanel(true));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && active) {
+        event.preventDefault();
+        closePanel(true);
+      }
+    });
+
+    document.addEventListener('pointerdown', (event) => {
+      if (active && event.target instanceof Node &&
+          !active.control.contains(event.target) && !active.panel.contains(event.target)) {
+        closePanel();
+      }
+    });
+    window.addEventListener('resize', positionPanel);
+    scene.addEventListener('load', positionPanel, true);
+  }
+</script>
