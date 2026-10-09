@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import CampusScene from '../components/CampusScene.astro';
+import { campusAreas } from '../data/campus';
+
+import { campusSceneNodes } from '../data/campusScene';
+
+const cardOrder = [
+  'academy', 'posgrado-luz', 'cti-pregrado', 'research', 'laboratory',
+  'library', 'conexiones-profesionales', 'community', 'auditorio',
+  'parque-innovacion-tecnologia', 'gdg-caracas', 'wtm-technovation',
+  'smart-learning', 'casa-yaskelly', 'entrada-principal'
+];
+const cards = cardOrder.flatMap((id) => {
+  const area = campusAreas.find((item) => item.id === id);
+  return area ? [area] : [];
+});
+const cardTitles: Record<string, string> = {
+  research: 'YaskCode Research',
+  'conexiones-profesionales': 'Conexiones',
+  'casa-yaskelly': 'Casa de Yaskelly',
+  'entrada-principal': 'Entrada principal'
+};
+const cardDescriptions: Record<string, string> = {
+  academy: 'Aprende ingeniería de software y computación mediante rutas formativas, práctica y proyectos.',
+  'posgrado-luz': 'Formación avanzada, recursos, acompañamiento académico, proyectos y trabajos de investigación de estudiantes de posgrado de la Universidad del Zulia.',
+  'cti-pregrado': 'Trabajos de grado de egresados de la Licenciatura en Computación, disponibles como referencia y apoyo para nuevos tesistas.',
+  research: 'Explora proyectos de investigación, publicaciones científicas y perfiles académicos.',
+  laboratory: 'Proyectos estudiantiles que integran desarrollo de software, documentación y buenas prácticas de ingeniería.',
+  library: 'Explora repositorios, documentación y recursos abiertos para aprender y desarrollar proyectos.',
+  'conexiones-profesionales': 'Encuentra mis perfiles y publicaciones en LinkedIn, Medium e Instagram.',
+  community: 'Encuentros y colaboración para aprender, compartir conocimiento y construir comunidad tecnológica.',
+  auditorio: 'Clases, charlas y talleres en video del canal de YouTube de YaskCode.',
+  'parque-innovacion-tecnologia': 'Prototipos, desarrollo de software y proyectos de innovación tecnológica.',
+  'gdg-caracas': 'Charlas, talleres y encuentros con la comunidad de desarrolladores de GDG Caracas.',
+  'wtm-technovation': 'Iniciativas que promueven la participación de mujeres y niñas en tecnología.',
+  'smart-learning': 'Ecosistemas digitales de aprendizaje para crear experiencias educativas flexibles, accesibles y centradas en las personas.',
+  'casa-yaskelly': 'Conoce a Yaskelly Yedra: su trayectoria docente, investigación y proyectos.'
+};
+const cardLinks: Record<string, { name: string; href: string; icon: string }[]> = {
+  research: [
+    { name: 'GitHub de Research', href: 'https://github.com/YaskCode-research', icon: 'github' },
+    { name: 'Google Scholar', href: 'https://scholar.google.com/citations?user=zySpQB0AAAAJ', icon: 'scholar' },
+    { name: 'ORCID', href: 'https://orcid.org/0009-0004-4290-120X', icon: 'orcid' }
+  ],
+  'conexiones-profesionales': [
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/yaskelly/', icon: 'linkedin' },
+    { name: 'Medium', href: 'https://medium.com/@yaskelly/', icon: 'medium' },
+    { name: 'Instagram', href: 'https://www.instagram.com/yaskelly', icon: 'instagram' }
+  ]
+};
+// Reuse the local SVG paths from the map panels without changing the scene.
+const iconPaths: Record<string, string> = {
+  linkedin: 'M3 3h18v18H3Z M7 10v7 M7 7h.01 M11 17v-7 M11 13c0-4 6-4 6 0v4',
+  medium: 'M13 12a6 6 0 1 1-12 0 6 6 0 0 1 12 0 M20 12a3 6 0 1 1-6 0 3 6 0 0 1 6 0 M23 12a1 5.5 0 1 1-2 0 1 5.5 0 0 1 2 0',
+  instagram: 'M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5Z M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0 M17.5 6.5h.01',
+  github: 'M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z',
+  scholar: 'M2 9l10-6 10 6-10 6-10-6Z M6 12v6q6 5 12 0v-6 M22 9v9',
+  orcid: 'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z M8 10v7 M8 7h.01 M12 7v10h2a5 5 0 0 0 0-10h-2Z'
+};
+
+---
+
+<BaseLayout
+  title="Campus YaskCode | Yaskelly Yedra"
+  description="Portal académico y tecnológico de Campus YaskCode."
+>
+  <SiteHeader />
+
+  <main>
+    <section class="hero shell" id="about">
+      <h1>Bienvenido al Campus YaskCode</h1>
+      <p class="hero-copy">
+        Explora un ecosistema donde la docencia, la investigación y la ingeniería
+        de software se convierten en proyectos con impacto real. Recorre sus
+        espacios con teclado o puntero. Cada destino abre una ruta de aprendizaje,
+        investigación o comunidad.
+      </p>
+    </section>
+
+    <CampusScene />
+
+    <section class="campus-section shell" id="campus" aria-labelledby="campus-title">
+      <div class="section-heading">
+        <div class="section-heading-copy">
+          <p class="eyebrow">ÁREAS DEL CAMPUS</p>
+          <h2 id="campus-title">Elige tu próximo recorrido</h2>
+        </div>
+      </div>
+      <div class="area-grid">
+        {cards.map((area) => {
+          const title = cardTitles[area.id] ?? area.name;
+          const links = cardLinks[area.id];
+          const isBuildCard = area.id === 'parque-innovacion-tecnologia';
+          const isSmartLearningCard = area.id === 'smart-learning';
+          const href = isBuildCard ? 'https://github.com/YaskCode-build' : links ? undefined : area.interactionUrl ?? campusSceneNodes.find((node) => node.id === area.id)?.fallbackHref;
+          const description = area.id === 'entrada-principal' && href === '#about'
+            ? 'Vuelve a la bienvenida del Campus YaskCode y conoce su propuesta.'
+            : cardDescriptions[area.id] ?? area.description;
+          const Card = href ? 'a' : 'article';
+          const opensTab = Boolean(href && area.interactionUrl);
+          return (
+            <Card
+              class="area-card"
+              data-card-id={area.id}
+              href={href}
+              target={opensTab ? '_blank' : undefined}
+              rel={opensTab ? 'noopener noreferrer' : undefined}
+              aria-label={href ? `${title}${opensTab ? ' (abre en otra pestaña)' : ''}` : undefined}
+              aria-labelledby={!href ? `card-title-${area.id}` : undefined}
+            >
+              {area.status && !isBuildCard && !isSmartLearningCard && <span class="status">{area.status}</span>}
+              <h3 id={`card-title-${area.id}`}>{title}</h3>
+              {area.id === 'cti-pregrado' && <p class="area-card-subtitle">Comisión de Trabajo de Investigación</p>}
+              <p>{description}</p>
+              {links && (
+                <ul class="area-card-links">
+                  {links.map((link) => (
+                    <li>
+                      <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={`${link.name} (abre en otra pestaña)`}>
+                        <svg viewBox="0 0 24 24" data-icon={link.icon} aria-hidden="true" focusable="false">
+                          <path d={iconPaths[link.icon]} />
+                        </svg>
+                        <span>{link.name}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </Card>
+          );
+        })}
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="shell contact-inner">
+        <div>
+          <p class="eyebrow">CONTACTO</p>
+          <h2 id="contact-title">El campus empieza con una conversación.</h2>
+        </div>
+        <a class="button button-light" href="mailto:yyedra@fec.luz.edu.ve">Contactar a Yaskelly Yedra</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <span>© 2026 Campus YaskCode · Yaskelly Yedra</span>
+    </div>
+  </footer>
+</BaseLayout>
