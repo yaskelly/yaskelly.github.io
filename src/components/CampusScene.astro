@@ -4,6 +4,11 @@ import { campusSceneNodes } from '../data/campusScene';
 
 const areaById = new Map(campusAreas.map((area) => [area.id, area]));
 
+// Scale the calibrated 1280px desktop sizes with the scene's 1216px surface.
+// The desktop clamps remain unchanged; mobile artwork has no fixed rem floor.
+const mobileNodeWidth = (width: string) => width.replace(/([\d.]+)(rem|vw)/g,
+  (_, value, unit) => `${Number(value) * (unit === 'rem' ? 16 : 12.8) / 1216 * 100}cqw`);
+
 const destinationPanels = [
   {
     id: 'conexiones-profesionales',
@@ -67,7 +72,8 @@ const sceneDestinations = campusSceneNodes
   <a
   href="#about"
   class="scene-node scene-node-vector"
-  style="--x: 93.4%; --y: 74.3%; --node-width: clamp(5.29rem, 7.015vw, 6.9rem); --layer: 4; opacity: 1; visibility: visible;"
+  style={`--x: 93.4%; --y: 74.3%; --node-width: clamp(5.29rem, 7.015vw, 6.9rem); --mobile-node-width: ${mobileNodeWidth('clamp(5.29rem, 7.015vw, 6.9rem)')}; --layer: 4; opacity: 1; visibility: visible;`}
+  data-label-side="right"
   aria-label="Entrada derecha de Campus YaskCode. Conocer el proyecto."
 >
    <span class="scene-vector-wrap">
@@ -96,8 +102,9 @@ const sceneDestinations = campusSceneNodes
           aria-controls={opensPanel ? `scene-panel-${node.id}` : undefined}
           aria-expanded={opensPanel ? 'false' : undefined}
           data-node-id={node.id}
+          data-label-side={node.x > 50 ? 'right' : 'left'}
           class={`scene-node ${node.kind === 'building' ? 'scene-node-building' : 'scene-node-vector'}`}
-          style={`--x: ${node.x}%; --y: ${node.y}%; --node-width: ${node.width}; --layer: ${node.layer};`}
+          style={`--x: ${node.x}%; --y: ${node.y}%; --node-width: ${node.width}; --mobile-node-width: ${mobileNodeWidth(node.width)}; --layer: ${node.layer};`}
           aria-label={`${area.name}. ${area.description}. ${opensPanel ? 'Abrir enlaces.' : 'Explorar destino.'}`}
           target={!opensPanel && area.interactionUrl ? '_blank' : undefined}
           rel={!opensPanel && area.interactionUrl ? 'noopener noreferrer' : undefined}
@@ -194,7 +201,6 @@ const sceneDestinations = campusSceneNodes
     const map = scene.querySelector<HTMLElement>('.scene-map');
     const stage = scene.querySelector<HTMLElement>('.scene-stage');
     const desktop = window.matchMedia('(min-width: 1200px)');
-    const connectionsDesktop = window.matchMedia('(min-width: 761px)');
     const imageBounds = new WeakMap<HTMLImageElement, number[]>();
 
     function visibleImageRect(image: HTMLImageElement) {
@@ -238,8 +244,8 @@ const sceneDestinations = campusSceneNodes
       const isConnections = control.dataset.nodeId === 'conexiones-profesionales';
       map.classList.toggle('scene-connections-active', isConnections);
       if (isConnections) {
-        map.classList.toggle('scene-panel-outside', !connectionsDesktop.matches);
-        if (!connectionsDesktop.matches) return;
+        map.classList.toggle('scene-panel-outside', !desktop.matches);
+        if (!desktop.matches) return;
         const image = control.querySelector<HTMLImageElement>('.scene-building');
         const sculpture = image ? visibleImageRect(image) : control.getBoundingClientRect();
         const origin = map.getBoundingClientRect();
