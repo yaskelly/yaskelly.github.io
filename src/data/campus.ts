@@ -263,7 +263,7 @@ export const campusAreas: CampusArea[] = [
       src: '/images/overlays/home.yaskellyyedra.png',
       alt: 'Casa personal de Yaskelly.'
     },
-    interactionUrl: 'https://www.yaskellyyedra.com/'
+    interactionUrl: 'https://yaskelly.github.io/yaskellyyedra/'
   },
   {
     id: 'entrada-principal',

@@ -4,7 +4,7 @@
 
 Un campus digital que conecta **docencia, investigación, proyectos y comunidades tecnológicas**, creado por **Yaskelly Yedra**, profesora e investigadora en Computación de la Universidad del Zulia, Venezuela.
 
-[Explorar el Campus](https://yaskelly.github.io/) · [Web académica de Yaskelly](https://www.yaskellyyedra.com/) · [English overview](#english-overview)
+[Explorar el Campus](https://yaskelly.github.io/) · [Web académica de Yaskelly](https://yaskelly.github.io/yaskellyyedra/) · [English overview](#english-overview)
 
 ## Una universidad como inspiración
 
@@ -102,7 +102,7 @@ Describe el espacio afectado, el comportamiento observado y el resultado esperad
 **Yaskelly Yedra**  
 Profesora e investigadora en Computación · Universidad del Zulia, Venezuela.
 
-- [Web académica personal](https://www.yaskellyyedra.com/)
+- [Web académica personal](https://yaskelly.github.io/yaskellyyedra/)
 - [Perfil de GitHub](https://github.com/yaskelly)
 - [Canal YaskCode en YouTube](https://www.youtube.com/@yaskcode)
 - [Google Scholar](https://scholar.google.com/citations?user=zySpQB0AAAAJ)
@@ -119,4 +119,4 @@ Explore the interactive map or the campus cards to discover education, research,
 
 The main content is in Spanish, with an English navigation guide. This repository contains the Astro source code for the website.
 
-**[Visit Campus YaskCode](https://yaskelly.github.io/)** · **[Yaskelly's academic website](https://www.yaskellyyedra.com/)**
+**[Visit Campus YaskCode](https://yaskelly.github.io/)** · **[Yaskelly's academic website](https://yaskelly.github.io/yaskellyyedra/)**
