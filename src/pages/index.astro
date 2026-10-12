@@ -214,13 +214,18 @@ const iconPaths: Record<string, string> = {
 
 <style>
   #campus .academy-flip { perspective: 1000px; display: block; padding: 0; }
-  .academy-flip-inner { display: grid; height: 100%; transform-style: preserve-3d; transition: transform .5s ease; }
+  .academy-flip-inner { position: relative; height: 100%; transform-style: preserve-3d; transition: transform .5s ease; }
   .academy-flip.is-flipped .academy-flip-inner { transform: rotateY(180deg); }
-  .academy-face { grid-area: 1 / 1; backface-visibility: hidden; padding: 1.5rem; display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; min-width: 0; }
+  .academy-face { backface-visibility: hidden; padding: 1.5rem; min-width: 0; }
+  .academy-front { height: 100%; display: flex; flex-direction: column; align-items: stretch; }
   .academy-front h3 a { color: inherit; text-decoration: underline; text-underline-offset: .18em; }
-  .academy-back { transform: rotateY(180deg); align-items: center; text-align: center; }
-  .academy-back img { width: 100%; height: 160px; object-fit: contain; }
-  .academy-flip-button { margin-top: auto; min-height: 44px; padding: .45rem .8rem; border: 1px solid currentColor; border-radius: .65rem; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+  .academy-front .academy-flip-button { align-self: flex-end; margin-top: auto; }
+  .academy-front p { padding-bottom: .5rem; }
+  .academy-back { position: absolute; inset: 0; transform: rotateY(180deg); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; gap: .5rem; align-items: center; text-align: left; overflow: hidden; }
+  .academy-back h3 { grid-column: 1; grid-row: 1; }
+  .academy-back img { grid-column: 2; grid-row: 1 / 3; width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+  .academy-back .academy-flip-button { grid-column: 1; grid-row: 2; justify-self: start; }
+  .academy-flip-button { min-height: 44px; padding: .35rem .65rem; border: 1px solid currentColor; border-radius: .65rem; background: transparent; color: inherit; font: .9rem/1.3 system-ui, sans-serif; cursor: pointer; }
   .academy-flip-button:focus-visible, .academy-front a:focus-visible { outline: 3px solid #c2185b; outline-offset: 4px; }
   @media (prefers-reduced-motion: reduce) { .academy-flip-inner { transition: none; } }
 </style>
