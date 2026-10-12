@@ -214,6 +214,8 @@ const iconPaths: Record<string, string> = {
 
 <style>
   #campus .academy-flip { perspective: 1000px; display: block; padding: 0; }
+  #campus .academy-flip:is(:hover, :focus-within) { border-color: var(--accent); background: #fff5f9; }
+  #campus .academy-flip:is(:hover, :focus-within) h3 { color: var(--accent); }
   .academy-flip-inner { position: relative; height: 100%; transform-style: preserve-3d; transition: transform .5s ease; }
   .academy-flip.is-flipped .academy-flip-inner { transform: rotateY(180deg); }
   .academy-face { backface-visibility: hidden; padding: 1.5rem; min-width: 0; }
