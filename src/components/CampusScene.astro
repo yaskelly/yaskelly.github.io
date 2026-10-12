@@ -92,6 +92,7 @@ const sceneDestinations = campusSceneNodes
    </a>
       {sceneDestinations.map(({ area, node, href }) => {
         const opensPanel = panelNodeIds.has(node.id);
+        const opensTab = !opensPanel && Boolean(area.interactionUrl);
         const NodeControl = opensPanel ? 'button' : 'a';
         return (
         <NodeControl
@@ -105,9 +106,9 @@ const sceneDestinations = campusSceneNodes
           data-label-side={node.x > 50 ? 'right' : 'left'}
           class={`scene-node ${node.kind === 'building' ? 'scene-node-building' : 'scene-node-vector'}`}
           style={`--x: ${node.x}%; --y: ${node.y}%; --node-width: ${node.width}; --mobile-node-width: ${mobileNodeWidth(node.width)}; --layer: ${node.layer};`}
-          aria-label={`${area.name}. ${area.description}. ${opensPanel ? 'Abrir enlaces.' : 'Explorar destino.'}`}
-          target={!opensPanel && area.interactionUrl ? '_blank' : undefined}
-          rel={!opensPanel && area.interactionUrl ? 'noopener noreferrer' : undefined}
+          aria-label={`${area.name}. ${area.description.replace(/\.$/, '')}. ${opensPanel ? 'Abrir enlaces.' : `Explorar destino.${opensTab ? ' Abre en otra pestaña.' : ''}`}`}
+          target={opensTab ? '_blank' : undefined}
+          rel={opensTab ? 'noopener noreferrer' : undefined}
         >
           <span class="scene-node-hit" aria-hidden="true"></span>
 
