@@ -31,6 +31,31 @@ a { color: inherit; }
   border: 0;
 }
 
+/* The first keyboard stop bypasses the repeated site navigation. */
+.skip-link {
+  position: fixed;
+  top: .75rem;
+  left: .75rem;
+  z-index: 10000;
+  max-width: calc(100vw - 1.5rem);
+  padding: .75rem 1rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: .35rem;
+  font: 700 1rem/1.4 system-ui, sans-serif;
+  transform: translateY(calc(-100% - 1rem));
+}
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+#main-content:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: -3px;
+}
+
 .shell { width: min(1440px, calc(100% - 4rem)); margin-inline: auto; }
 .site-header { border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, .94); }
 .header-inner, .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4.5rem; }
