@@ -63,7 +63,7 @@ a { color: inherit; }
 .brand-mark { display: grid; width: 2rem; height: 2rem; place-items: center; background: var(--accent); color: white; border-radius: 50%; font-family: system-ui, sans-serif; }
 nav { display: flex; flex-wrap: wrap; gap: 1.25rem; font-family: system-ui, sans-serif; font-size: .9rem; }
 nav a { text-decoration: none; }
-nav a:hover, nav a:focus-visible { color: var(--accent); }
+nav a:hover, nav a:focus-visible { color: #b93670; }
 nav a[href='#english-guide']:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: .2rem; }
 
 .hero { padding: clamp(3.5rem, 8vw, 6rem) 0 2.25rem; }
@@ -460,7 +460,8 @@ h2 { max-width: 650px; margin-bottom: 1rem; font-size: clamp(2rem, 4vw, 3.5rem);
 }
 
 .scene-node:focus-visible {
-  outline: 3px solid var(--highlight);
+  box-shadow: 0 0 0 4px var(--paper);
+  outline: 3px solid var(--ink);
   outline-offset: 4px;
   border-radius: .4rem;
 }
@@ -686,7 +687,7 @@ button.scene-node {
 #contact .button-light:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
 .site-footer { background: var(--ink); color: #dce4df; font: .8rem system-ui, sans-serif; }
 
-:focus-visible { outline: 3px solid var(--highlight); outline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 @media (max-width: 1100px) {
   /* Side labels have too little room between nodes on narrower scenes. */
   .scene-node:is([data-node-id='academy'], [data-node-id='posgrado-luz'], [data-node-id='research'], [data-node-id='community']) .scene-node-pill {
