@@ -140,6 +140,22 @@ const iconPaths: Record<string, string> = {
             : cardDescriptions[area.id] ?? area.description;
           const Card = href ? 'a' : 'article';
           const opensTab = Boolean(href && area.interactionUrl);
+          if (area.id === 'academy') return (
+            <article class="area-card academy-flip" data-card-id={area.id} aria-label={title}>
+              <div class="academy-flip-inner">
+                <div class="academy-face academy-front" id="academy-card-front">
+                  <h3><a href={href} target={opensTab ? '_blank' : undefined} rel={opensTab ? 'noopener noreferrer' : undefined}>{title}</a></h3>
+                  <p>{description}</p>
+                  <button type="button" class="academy-flip-button" data-academy-flip="back" aria-controls="academy-card-back" aria-expanded="false">Ver edificio ↻</button>
+                </div>
+                <div class="academy-face academy-back" id="academy-card-back" aria-hidden="true" inert>
+                  <img src="/images/overlays/academy.png" alt="Edificio de YaskCode Academy" width="1122" height="1402" loading="lazy" decoding="async" />
+                  <h3>{title}</h3>
+                  <button type="button" class="academy-flip-button" data-academy-flip="front">↶ Volver</button>
+                </div>
+              </div>
+            </article>
+          );
           return (
             <Card
               class="area-card"
@@ -195,3 +211,41 @@ const iconPaths: Record<string, string> = {
     </div>
   </footer>
 </BaseLayout>
+
+<style>
+  #campus .academy-flip { perspective: 1000px; display: block; padding: 0; }
+  .academy-flip-inner { display: grid; height: 100%; transform-style: preserve-3d; transition: transform .5s ease; }
+  .academy-flip.is-flipped .academy-flip-inner { transform: rotateY(180deg); }
+  .academy-face { grid-area: 1 / 1; backface-visibility: hidden; padding: 1.5rem; display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; min-width: 0; }
+  .academy-front h3 a { color: inherit; text-decoration: underline; text-underline-offset: .18em; }
+  .academy-back { transform: rotateY(180deg); align-items: center; text-align: center; }
+  .academy-back img { width: 100%; height: 160px; object-fit: contain; }
+  .academy-flip-button { margin-top: auto; min-height: 44px; padding: .45rem .8rem; border: 1px solid currentColor; border-radius: .65rem; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+  .academy-flip-button:focus-visible, .academy-front a:focus-visible { outline: 3px solid #c2185b; outline-offset: 4px; }
+  @media (prefers-reduced-motion: reduce) { .academy-flip-inner { transition: none; } }
+</style>
+<script>
+  const card = document.querySelector<HTMLElement>('.academy-flip');
+  if (card) {
+    const front = card.querySelector<HTMLElement>('.academy-front')!;
+    const back = card.querySelector<HTMLElement>('.academy-back')!;
+    const show = card.querySelector<HTMLButtonElement>('[data-academy-flip="back"]')!;
+    const reset = card.querySelector<HTMLButtonElement>('[data-academy-flip="front"]')!;
+    const flip = (reversed: boolean) => {
+      front.inert = reversed;
+      back.inert = !reversed;
+      front.setAttribute('aria-hidden', String(reversed));
+      back.setAttribute('aria-hidden', String(!reversed));
+      show.setAttribute('aria-expanded', String(reversed));
+      card.classList.toggle('is-flipped', reversed);
+      (reversed ? reset : show).focus({ preventScroll: true });
+    };
+    show.addEventListener('click', () => flip(true));
+    reset.addEventListener('click', () => flip(false));
+    card.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && card.classList.contains('is-flipped')) {
+        event.preventDefault(); flip(false);
+      }
+    });
+  }
+</script>
