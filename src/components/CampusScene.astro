@@ -290,14 +290,6 @@ const sceneDestinations = campusSceneNodes
 
     scene.querySelectorAll<HTMLButtonElement>('button[data-scene-panel]').forEach((control) => {
       control.addEventListener('click', () => openPanel(control, true));
-      if (control.dataset.nodeId === 'conexiones-profesionales') {
-        control.addEventListener('pointerenter', (event) => {
-          // Do not replace a panel while someone is using its keyboard focus.
-          if (event.pointerType === 'mouse' && !active?.panel.contains(document.activeElement)) {
-            openPanel(control);
-          }
-        });
-      }
     });
 
     scene.querySelectorAll<HTMLButtonElement>('[data-scene-panel-close]').forEach((button) => {
