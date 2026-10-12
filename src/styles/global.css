@@ -646,7 +646,7 @@ button.scene-node {
 #campus a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 #campus .area-card-links { display: flex; flex-wrap: wrap; gap: .35rem .75rem; padding: 0; margin: .75rem 0 0; list-style: none; }
 #campus .area-card-links li { min-width: 0; }
-#campus .area-card-links a { display: flex; align-items: center; gap: .4rem; min-height: 44px; padding: .25rem; border-radius: .25rem; color: var(--accent); font: .9rem/1.4 system-ui, sans-serif; text-underline-offset: .2em; overflow-wrap: anywhere; }
+#campus .area-card-links a { display: flex; align-items: center; gap: .4rem; min-height: 44px; padding: .25rem; border-radius: .25rem; color: #b93670; font: .9rem/1.4 system-ui, sans-serif; text-underline-offset: .2em; overflow-wrap: anywhere; }
 #campus .area-card-links a:is(:hover, :focus-visible) { background: #ffe4ee; }
 #campus .area-card-links svg { width: 22px; height: 22px; flex: 0 0 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 #campus .area-card-links svg:is([data-icon='medium'], [data-icon='github']) { fill: currentColor; stroke: none; }
@@ -654,7 +654,7 @@ button.scene-node {
 .contact-section { padding: 2.25rem 0; background: var(--accent); color: white; }
 .contact-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
 .contact-inner > div { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
-#contact .contact-details { margin-bottom: 0; font-size: 1.35rem; }
+#contact .contact-details { margin-bottom: 0; color: var(--ink); font-size: 1.35rem; }
 #contact .contact-details a { margin-inline-start: 1rem; font-size: inherit; text-decoration: underline; text-underline-offset: .2em; }
 #contact .button-light { background: white; color: #b93670; max-width: 100%; flex-shrink: 0; overflow-wrap: anywhere; }
 #contact .button-light:hover, #contact .button-light:focus-visible { background: white; text-decoration: underline; text-underline-offset: .2em; }
