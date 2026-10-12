@@ -81,7 +81,7 @@ const sceneDestinations = campusSceneNodes
         src="/images/overlays/entrada-yaskcode-v2.png"
         alt=""
         class="scene-building"
-        loading="lazy"
+        loading="eager"
         decoding="async"
       />
     </span>
@@ -112,11 +112,11 @@ const sceneDestinations = campusSceneNodes
           <span class="scene-node-hit" aria-hidden="true"></span>
 
           {node.kind === 'building' ? (
-            <img src={node.imageSrc} alt={node.imageAlt} class="scene-building" loading="lazy" decoding="async" />
+            <img src={node.imageSrc} alt={node.imageAlt} class="scene-building" loading="eager" decoding="async" />
           ) : (
             <span class="scene-vector-wrap" aria-hidden="true">
               {node.imageSrc ? (
-                <img src={node.imageSrc} alt="" class="scene-building" loading="lazy" decoding="async" />
+                <img src={node.imageSrc} alt="" class="scene-building" loading="eager" decoding="async" />
               ) : (
               <span class={`scene-vector scene-vector-${node.vectorKind ?? 'plaza'}`}>
                 <svg viewBox="0 0 100 100" focusable="false" aria-hidden="true">
