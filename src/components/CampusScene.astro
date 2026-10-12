@@ -39,6 +39,12 @@ const iconPaths: Record<string, string> = {
   orcid: 'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z M8 10v7 M8 7h.01 M12 7v10h2a5 5 0 0 0 0-10h-2Z'
 };
 
+const responsiveSrcSet = (src: string, widths = [128, 256, 512, 1024]) => {
+  const stem = src.split('/').pop()?.replace(/\.(png|webp)$/, '');
+  return widths.map((width) => `/images/responsive/${stem}-${width}.webp ${width}w`).join(', ');
+};
+const buildingSizes = '(max-width: 1199px) 22vw, 260px';
+
 const sceneDestinations = campusSceneNodes
   .map((node) => {
     const area = areaById.get(node.id);
@@ -64,6 +70,8 @@ const sceneDestinations = campusSceneNodes
       alt=""
       aria-hidden="true"
       class="scene-bg"
+      srcset={`${responsiveSrcSet('/images/campus-tropical-innovation-bg-v2.png', [640, 960, 1280])}, /images/campus-tropical-innovation-bg-v2.png 1584w`}
+      sizes="(max-width: 760px) calc(100vw - 2.5rem), (max-width: 1504px) calc(100vw - 4rem), 1440px"
       width="1584"
       height="993"
       loading="eager"
@@ -82,6 +90,8 @@ const sceneDestinations = campusSceneNodes
    <span class="scene-vector-wrap">
       <img
         src="/images/overlays/entrada-yaskcode-v2.png"
+        srcset={responsiveSrcSet('/images/overlays/entrada-yaskcode-v2.png')}
+        sizes={buildingSizes}
         alt=""
         class="scene-building"
         loading="lazy"
@@ -116,11 +126,11 @@ const sceneDestinations = campusSceneNodes
           <span class="scene-node-hit" aria-hidden="true"></span>
 
           {node.kind === 'building' ? (
-            <img src={node.imageSrc} alt={node.imageAlt} class="scene-building" loading="lazy" decoding="async" />
+            <img src={node.imageSrc} alt={node.imageAlt} srcset={node.imageSrc ? responsiveSrcSet(node.imageSrc) : undefined} sizes={buildingSizes} class="scene-building" loading="lazy" decoding="async" />
           ) : (
             <span class="scene-vector-wrap" aria-hidden="true">
               {node.imageSrc ? (
-                <img src={node.imageSrc} alt="" class="scene-building" loading="lazy" decoding="async" />
+                <img src={node.imageSrc} alt="" srcset={responsiveSrcSet(node.imageSrc)} sizes={buildingSizes} class="scene-building" loading="lazy" decoding="async" />
               ) : (
               <span class={`scene-vector scene-vector-${node.vectorKind ?? 'plaza'}`}>
                 <svg viewBox="0 0 100 100" focusable="false" aria-hidden="true">
