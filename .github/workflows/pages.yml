@@ -45,6 +45,7 @@ jobs:
               'conexiones-yaskcode-v1.png'
           ]
           rows = []
+          responsive_rows = []
           for name in names:
               matches = list(Path('public/images').rglob(name))
               assert len(matches) == 1, f'Unexpected source: {name}'
@@ -57,6 +58,18 @@ jobs:
                       decoded = converted.convert('RGBA')
                       assert original.size == decoded.size
                       assert original.tobytes() == decoded.tobytes(), f'Pixel mismatch: {name}'
+              # Smaller display variants retain exact RGBA pixels after resizing.
+              variant_widths = [640, 960, 1280] if name.startswith('campus-tropical') else [128, 256, 512, 1024]
+              variant_dir = Path('public/images/responsive')
+              variant_dir.mkdir(parents=True, exist_ok=True)
+              for variant_width in variant_widths:
+                  variant_height = round(original.height * variant_width / original.width)
+                  resized = original.resize((variant_width, variant_height), Image.Resampling.LANCZOS)
+                  variant_file = variant_dir / f'{source.stem}-{variant_width}.webp'
+                  resized.save(variant_file, 'WEBP', lossless=True, exact=True, method=6)
+                  responsive_rows.append({'image': name, 'width': variant_width, 'bytes': variant_file.stat().st_size})
+                  with Image.open(variant_file) as checked:
+                      assert checked.convert('RGBA').tobytes() == resized.tobytes(), f'Variant mismatch: {variant_file}'
               before, after = source.stat().st_size, target.stat().st_size
               selected = target if after < before else source
               if selected == target:
@@ -73,6 +86,7 @@ jobs:
           report = {'images': rows, 'original_bytes': sum(x['png_bytes'] for x in rows),
                     'trial_bytes': sum(x['selected_bytes'] for x in rows),
                     'loading': 'Original lazy loading preserved'}
+          report['responsive_variants'] = responsive_rows
           Path('public/image-comparison.json').write_text(json.dumps(report, indent=2))
           print(json.dumps(report, indent=2))
           PY
