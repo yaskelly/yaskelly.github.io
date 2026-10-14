@@ -270,6 +270,7 @@ export const campusAreas: CampusArea[] = [
     name: 'Suscríbete a YaskCode',
     shortName: 'Suscríbete',
     description: 'Recibe novedades, recursos y actividades de YaskCode sobre Ingeniería de Software, IA, Ciencia de Datos y Cloud.',
+    interactionUrl: 'https://yaskcode.beehiiv.com/',
     slug: 'entrada-principal-yaskcode',
     category: 'infrastructure',
     navOrder: 14,
