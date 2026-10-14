@@ -149,10 +149,10 @@ export const campusSceneNodes: CampusSceneNode[] = [
     y: 74.3,
     width: 'clamp(5.29rem, 7.015vw, 6.9rem)',
     layer: 4,
-    imageSrc: '/images/overlays/entrada-yaskcode-v1.png',
-    imageAlt: 'Escultura de entrada de YaskCode: Y fucsia con birrete.',
+    imageSrc: '/images/overlays/buzon-yaskcode-v1.png',
+    imageAlt: 'Buzón magenta de suscripción a YaskCode.',
     vectorKind: 'gate',
-    fallbackHref: '#about'
+    fallbackHref: '#suscripcion'
   },
   {
     id: 'conexiones-profesionales',

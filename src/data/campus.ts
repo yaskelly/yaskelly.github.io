@@ -267,9 +267,9 @@ export const campusAreas: CampusArea[] = [
   },
   {
     id: 'entrada-principal',
-    name: 'Entrada principal — YaskCode',
-    shortName: 'Entrada principal',
-    description: 'El acceso principal al ecosistema Campus YaskCode.',
+    name: 'Suscríbete a YaskCode',
+    shortName: 'Suscríbete',
+    description: 'Recibe novedades, recursos y actividades de YaskCode sobre Ingeniería de Software, IA, Ciencia de Datos y Cloud.',
     slug: 'entrada-principal-yaskcode',
     category: 'infrastructure',
     navOrder: 14,

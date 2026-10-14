@@ -757,3 +757,12 @@ button.scene-node {
     filter: drop-shadow(0 4px 8px rgba(42, 32, 18, .24));
   }
 }
+
+/* Subscription trial: preserve the existing Campus layout. */
+.subscription-section { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding-block: 2rem; scroll-margin-top: 6rem; }
+.subscription-section > div { min-width: 0; max-width: 52rem; }
+.subscription-section h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); margin-bottom: .5rem; }
+.subscription-section p { margin-bottom: 0; }
+.subscription-button { flex-shrink: 0; min-height: 44px; }
+.subscription-button:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+@media (max-width: 760px) { .subscription-section { flex-direction: column; align-items: flex-start; } }
