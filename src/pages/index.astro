@@ -184,7 +184,10 @@ const iconPaths: Record<string, string> = {
         <h2 id="subscription-title">Suscríbete a YaskCode</h2>
         <p>Recibe novedades, recursos y actividades sobre Ingeniería de Software, Inteligencia Artificial, Ciencia de Datos y Cloud.</p>
       </div>
-      <a class="button subscription-button" href="https://yaskcode.beehiiv.com/" target="_blank" rel="noopener noreferrer" aria-label="Suscribirme a YaskCode (abre en otra pestaña)">Suscribirme <span aria-hidden="true">↗</span></a>
+      <div class="subscription-embed">
+        <script is:inline async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="dc1276e8-0370-437e-8127-efd56475818c"></script>
+        <noscript><a href="https://yaskcode.beehiiv.com/">Suscribirme en beehiiv</a></noscript>
+      </div>
     </section>
 
     <section class="contact-section" id="contact" aria-labelledby="contact-title">
@@ -205,3 +208,8 @@ const iconPaths: Record<string, string> = {
     </div>
   </footer>
 </BaseLayout>
+
+<style>
+  #suscripcion { flex-direction: column; align-items: stretch; }
+  #suscripcion .subscription-embed { width: 100%; max-width: 100%; min-width: 0; }
+</style>
