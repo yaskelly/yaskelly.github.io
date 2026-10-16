@@ -648,7 +648,7 @@ button.scene-node {
 .english-guide { padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
 .english-guide p:not(:last-child) { margin-bottom: .75rem; }
 
-.campus-section { padding: 3.5rem 0 3rem; }
+.campus-section { padding: 3.5rem 0 7rem; }
 .section-heading { margin-bottom: 2rem; }
 .section-heading-copy { max-width: 100%; }
 #campus-title { font-size: clamp(1.7rem, 3.4vw, 2.975rem); }
@@ -758,28 +758,11 @@ button.scene-node {
   }
 }
 
-/* Newsletter and academic contact share one compact footer strip. */
-#contact .contact-inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 30rem);
-  align-items: center;
-  gap: 1.25rem 2rem;
-}
-#contact .subscription-copy { color: var(--ink); scroll-margin-top: 6rem; }
-#contact h2 { font-size: clamp(1.6rem, 2.5vw, 2.25rem); line-height: 1.25; margin-bottom: .75rem; }
-#contact .subscription-copy p { margin: 0; }
-#contact .subscription-embed { width: 100%; min-width: 0; max-width: 100%; }
-#contact .subscription-embed iframe { display: block; width: 100%; max-width: 100%; border: 0; }
-#contact .contact-details { grid-column: 1 / -1; margin: 0; }
-@media (max-width: 900px) {
-  #contact .contact-inner { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
-  #contact .subscription-embed { max-width: 30rem; }
-  #contact .contact-details a { display: inline-block; margin-inline-start: 0; }
-}
-
-/* Subscription copy: stronger heading and readable two-line desktop summary. */
-#contact h2 { color: #fff; font-weight: 700; }
-#contact .subscription-copy p { font-size: clamp(1.1rem, 1.45vw, 1.35rem); line-height: 1.5; text-wrap: pretty; }
-@media (min-width: 1100px) {
-  #contact .contact-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 25rem); }
-}
+/* Subscription trial: preserve the existing Campus layout. */
+.subscription-section { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding-block: 2rem; scroll-margin-top: 6rem; }
+.subscription-section > div { min-width: 0; max-width: 52rem; }
+.subscription-section h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); margin-bottom: .5rem; }
+.subscription-section p { margin-bottom: 0; }
+.subscription-button { flex-shrink: 0; min-height: 44px; }
+.subscription-button:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+@media (max-width: 760px) { .subscription-section { flex-direction: column; align-items: flex-start; } }
