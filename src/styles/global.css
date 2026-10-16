@@ -648,7 +648,7 @@ button.scene-node {
 .english-guide { padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
 .english-guide p:not(:last-child) { margin-bottom: .75rem; }
 
-.campus-section { padding: 3.5rem 0 1.5rem; }
+.campus-section { padding: 3.5rem 0 3rem; }
 .section-heading { margin-bottom: 2rem; }
 .section-heading-copy { max-width: 100%; }
 #campus-title { font-size: clamp(1.7rem, 3.4vw, 2.975rem); }
