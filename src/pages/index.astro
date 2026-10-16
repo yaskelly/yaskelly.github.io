@@ -179,21 +179,17 @@ const iconPaths: Record<string, string> = {
       </div>
     </section>
 
-    <section class="subscription-section shell" id="suscripcion" aria-labelledby="subscription-title">
-      <h2 id="subscription-title" class="sr-only">Suscripción a YaskCode</h2>
-      <div class="subscription-embed">
-        <script is:inline async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="dc1276e8-0370-437e-8127-efd56475818c"></script>
-        <noscript><a href="https://yaskcode.beehiiv.com/">Suscribirme en beehiiv</a></noscript>
-      </div>
-    </section>
-
     <section class="contact-section" id="contact" aria-labelledby="contact-title">
       <div class="shell contact-inner">
-        <div>
-          <h2 id="contact-title">El campus empieza con una conversación.</h2>
-          <p class="contact-details">Para consultas sobre docencia, investigación, charlas y colaboración académica. <a href="mailto:yyedra@fec.luz.edu.ve">yyedra@fec.luz.edu.ve</a></p>
+        <div class="subscription-copy" id="suscripcion">
+          <h2 id="contact-title">Aprende, construye y conecta con YaskCode</h2>
+          <p>Recibe recursos abiertos, proyectos, investigación, eventos y oportunidades sobre Ingeniería de Software, IA, Ciencia de Datos y Cloud.</p>
         </div>
-        <a class="button button-light" href="mailto:yyedra@fec.luz.edu.ve">Contactar a Yaskelly Yedra</a>
+        <div class="subscription-embed" role="group" aria-label="Suscríbete a YaskCode">
+          <script is:inline async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="dc1276e8-0370-437e-8127-efd56475818c"></script>
+          <noscript><a href="https://yaskcode.beehiiv.com/">Suscribirme en beehiiv</a></noscript>
+        </div>
+        <p class="contact-details">Para consultas sobre docencia, investigación, charlas y colaboración académica. <a href="mailto:yyedra@fec.luz.edu.ve">yyedra@fec.luz.edu.ve</a></p>
       </div>
     </section>
 
@@ -206,7 +202,3 @@ const iconPaths: Record<string, string> = {
   </footer>
 </BaseLayout>
 
-<style>
-  #suscripcion { flex-direction: column; align-items: stretch; }
-  #suscripcion .subscription-embed { width: 100%; max-width: 100%; min-width: 0; }
-</style>
