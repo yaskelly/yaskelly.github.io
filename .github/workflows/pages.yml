@@ -41,7 +41,7 @@ jobs:
               'library.png', 'community.png', 'anfiteatro-moderno.png',
               'yaskcode-construccion.png', 'gdg-caracas.png', 'wtm-technovation.png',
               'smart-learning.png', 'home.yaskellyyedra.png',
-              'entrada-yaskcode-v1.png', 'entrada-yaskcode-v2.png',
+              'entrada-yaskcode-v1.png', 'entrada-yaskcode-v2.png', 'buzon-yaskcode-v1.png',
               'conexiones-yaskcode-v1.png'
           ]
           rows = []

@@ -20,7 +20,7 @@ const cardTitles: Record<string, string> = {
   research: 'YaskCode Research',
   'conexiones-profesionales': 'Conexiones',
   'casa-yaskelly': 'Casa de Yaskelly',
-  'entrada-principal': 'Entrada principal'
+  'entrada-principal': 'Suscríbete a YaskCode'
 };
 const cardTranslations: Record<string, string> = {
   'posgrado-luz': 'Graduate Studies',
@@ -29,7 +29,7 @@ const cardTranslations: Record<string, string> = {
   auditorio: 'Talks & Videos',
   'parque-innovacion-tecnologia': 'Innovation & Technology Park',
   'casa-yaskelly': 'About Yaskelly',
-  'entrada-principal': 'Welcome & Navigation'
+  'entrada-principal': 'Subscribe'
 };
 const cardDescriptions: Record<string, string> = {
   academy: 'Aprende ingeniería de software y computación mediante rutas formativas, práctica y proyectos.',
@@ -179,6 +179,14 @@ const iconPaths: Record<string, string> = {
       </div>
     </section>
 
+    <section class="subscription-section shell" id="suscripcion" aria-labelledby="subscription-title">
+      <h2 id="subscription-title" class="sr-only">Suscripción a YaskCode</h2>
+      <div class="subscription-embed">
+        <script is:inline async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="dc1276e8-0370-437e-8127-efd56475818c"></script>
+        <noscript><a href="https://yaskcode.beehiiv.com/">Suscribirme en beehiiv</a></noscript>
+      </div>
+    </section>
+
     <section class="contact-section" id="contact" aria-labelledby="contact-title">
       <div class="shell contact-inner">
         <div>
@@ -188,6 +196,7 @@ const iconPaths: Record<string, string> = {
         <a class="button button-light" href="mailto:yyedra@fec.luz.edu.ve">Contactar a Yaskelly Yedra</a>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer">
@@ -196,3 +205,8 @@ const iconPaths: Record<string, string> = {
     </div>
   </footer>
 </BaseLayout>
+
+<style>
+  #suscripcion { flex-direction: column; align-items: stretch; }
+  #suscripcion .subscription-embed { width: 100%; max-width: 100%; min-width: 0; }
+</style>
