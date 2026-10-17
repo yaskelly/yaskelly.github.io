@@ -766,3 +766,20 @@ button.scene-node {
 .subscription-button { flex-shrink: 0; min-height: 44px; }
 .subscription-button:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
 @media (max-width: 760px) { .subscription-section { flex-direction: column; align-items: flex-start; } }
+
+/* Coffee trial: reuse destination panels without changing existing controls. */
+#scene-panel-cafecito, #scene-panel-cafecito .scene-panel-links { flex-direction: column; }
+#scene-panel-cafecito .scene-panel-links button {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; padding: 0; border: 0; border-radius: .35rem;
+  background: transparent; cursor: default;
+}
+#scene-panel-cafecito .scene-panel-links button:is(:hover, :focus-visible) { background: var(--paper); }
+#scene-panel-cafecito button:is(:hover, :focus-visible) .scene-icon-label { visibility: visible; }
+#scene-panel-cafecito .scene-icon-label { left: auto; right: calc(100% + .5rem); top: 50%; transform: translateY(-50%); }
+#scene-panel-cafecito svg[data-icon='paypal'] { color: #003087; }
+#scene-panel-cafecito svg[data-icon='zinli'] { color: #6236b5; }
+#scene-panel-cafecito svg[data-icon='binance'] { color: #9a7100; fill: currentColor; stroke: none; }
+@media (max-width: 1199px) {
+  #scene-panel-cafecito .scene-icon-label { right: auto; left: calc(100% + .5rem); white-space: normal; width: min(10rem, 42vw); }
+}

@@ -9,7 +9,22 @@ const areaById = new Map(campusAreas.map((area) => [area.id, area]));
 const mobileNodeWidth = (width: string) => width.replace(/([\d.]+)(rem|vw)/g,
   (_, value, unit) => `${Number(value) * (unit === 'rem' ? 16 : 12.8) / 1216 * 100}cqw`);
 
+areaById.set('cafecito', {
+  id: 'cafecito', name: 'Invítanos un café', shortName: 'Invítanos un café',
+  description: 'Aportes voluntarios para apoyar los recursos abiertos de YaskCode.',
+  slug: 'cafecito', category: 'infrastructure', navOrder: 16
+});
+
 const destinationPanels = [
+  {
+    id: 'cafecito',
+    title: 'Aportes voluntarios',
+    links: [
+      { name: 'PayPal · USD', href: null, icon: 'paypal' },
+      { name: 'Zinli · USD', href: null, icon: 'zinli' },
+      { name: 'Binance Pay · USDT', href: null, icon: 'binance' }
+    ]
+  },
   {
     id: 'conexiones-profesionales',
     title: 'Conexiones',
@@ -31,6 +46,9 @@ const destinationPanels = [
 ];
 const panelNodeIds = new Set(destinationPanels.map((panel) => panel.id));
 const iconPaths: Record<string, string> = {
+  paypal: 'M6 21 9 3h6c7 0 6 10-1 10h-4 M10 17h4c6 0 7-9 2-10',
+  zinli: 'M5 5h14L5 19h14',
+  binance: 'M12 2 16 6 12 10 8 6Z M6 8 10 12 6 16 2 12Z M18 8 22 12 18 16 14 12Z M12 14 16 18 12 22 8 18Z',
   linkedin: 'M3 3h18v18H3Z M7 10v7 M7 7h.01 M11 17v-7 M11 13c0-4 6-4 6 0v4',
   medium: 'M13 12a6 6 0 1 1-12 0 6 6 0 0 1 12 0 M20 12a3 6 0 1 1-6 0 3 6 0 0 1 6 0 M23 12a1 5.5 0 1 1-2 0 1 5.5 0 0 1 2 0',
   instagram: 'M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5Z M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0 M17.5 6.5h.01',
@@ -154,14 +172,14 @@ const sceneDestinations = campusSceneNodes
               </span>
               )}
               <span class="scene-vector-caption">
-                {node.id === 'entrada-principal' ? 'Suscríbete' : 'Conexiones'}
+                {node.id === 'entrada-principal' ? 'Suscríbete' : node.id === 'cafecito' ? 'Cafecito' : 'Conexiones'}
               </span>
             </span>
           )}
 
           <span class="scene-node-pill">
             <strong>{area.shortName ?? area.name}</strong>
-            <span>EXPLORAR</span>
+            <span>{node.id === 'cafecito' ? 'APOYAR' : 'EXPLORAR'}</span>
           </span>
         </NodeControl>
         );
@@ -178,9 +196,11 @@ const sceneDestinations = campusSceneNodes
         hidden
       >
         <ul class="scene-panel-links">
-          {panel.links.map((link) => (
+          {panel.links.map((link) => {
+            const LinkControl = link.href ? 'a' : 'button';
+            return (
             <li>
-              <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={`${link.name} (abre en otra pestaña)`}>
+              <LinkControl href={link.href ?? undefined} type={link.href ? undefined : 'button'} target={link.href ? '_blank' : undefined} rel={link.href ? 'noopener noreferrer' : undefined} aria-disabled={link.href ? undefined : 'true'} aria-label={link.href ? `${link.name} (abre en otra pestaña)` : `${link.name}: enlace de recepción pendiente de configurar`}>
                 <svg viewBox="0 0 24 24" data-icon={link.icon} aria-hidden="true" focusable="false">
                   {link.icon === 'instagram' && (
                     <defs>
@@ -193,10 +213,11 @@ const sceneDestinations = campusSceneNodes
                   )}
                   <path d={iconPaths[link.icon]} />
                 </svg>
-                <span class="scene-icon-label" aria-hidden="true">{link.name}</span>
-              </a>
+                <span class="scene-icon-label" aria-hidden="true">{link.name}{!link.href && " · Pendiente de configurar"}</span>
+              </LinkControl>
             </li>
-          ))}
+            );
+          })}
         </ul>
         <button type="button" class="scene-panel-close" data-scene-panel-close aria-label={`Cerrar panel de ${panel.title}`}>
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 6 12 12 M18 6 6 18" /></svg>
@@ -275,7 +296,8 @@ const sceneDestinations = campusSceneNodes
       const image = control.querySelector<HTMLImageElement>('.scene-building');
       const building = image ? visibleImageRect(image) : control.getBoundingClientRect();
       // Research uses its own visible image as the anchor, just like Conexiones.
-      panel.style.left = `${building.right + 10 - origin.left}px`;
+      const isCoffee = control.dataset.nodeId === 'cafecito';
+      panel.style.left = `${isCoffee ? building.left - panel.offsetWidth - 10 - origin.left : building.right + 10 - origin.left}px`;
       panel.style.top = `${(building.top + building.bottom - panel.offsetHeight) / 2 - origin.top}px`;
     }
 
@@ -299,7 +321,7 @@ const sceneDestinations = campusSceneNodes
       }
       positionPanel();
       // Hover keeps focus where it was; deliberate activation enters the links.
-      if (focusLinks) panel.querySelector<HTMLAnchorElement>('a')?.focus();
+      if (focusLinks) panel.querySelector<HTMLElement>('a, button[aria-disabled]')?.focus();
     }
 
     scene.querySelectorAll<HTMLButtonElement>('button[data-scene-panel]').forEach((control) => {

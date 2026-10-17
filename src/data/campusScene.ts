@@ -13,6 +13,13 @@ export type CampusSceneNode = {
 
 export const campusSceneNodes: CampusSceneNode[] = [
   {
+    id: 'cafecito', kind: 'vector', x: 93.2, y: 17.5,
+    width: 'clamp(5.29rem, 7.015vw, 6.9rem)', layer: 7,
+    imageSrc: '/images/overlays/cafecito-yaskcode-v1.png',
+    imageAlt: 'Taza magenta de café con símbolo de código: aportes voluntarios a YaskCode.',
+    vectorKind: 'plaza'
+  },
+  {
     id: 'academy',
     kind: 'building',
     x: 12.7,
