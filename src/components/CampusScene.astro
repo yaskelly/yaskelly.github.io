@@ -195,10 +195,11 @@ const sceneDestinations = campusSceneNodes
       >
         <ul class="scene-panel-links">
           {panel.links.map((link) => {
+            const isZinli = link.icon === 'zinli';
             const LinkControl = link.href ? 'a' : 'button';
             return (
             <li>
-              <LinkControl href={link.href ?? undefined} type={link.href ? undefined : 'button'} target={link.href ? '_blank' : undefined} rel={link.href ? 'noopener noreferrer' : undefined} aria-disabled={link.href ? undefined : 'true'} aria-label={link.href ? `${link.name} (abre en otra pestaña)` : `${link.name}: enlace de recepción pendiente de configurar`}>
+              <LinkControl href={link.href ?? undefined} type={link.href ? undefined : 'button'} target={link.href ? '_blank' : undefined} rel={link.href ? 'noopener noreferrer' : undefined} data-zinli-open={isZinli ? '' : undefined} aria-haspopup={isZinli ? 'dialog' : undefined} aria-controls={isZinli ? 'zinli-payment-dialog' : undefined} aria-disabled={link.href || isZinli ? undefined : 'true'} aria-label={link.href ? `${link.name} (abre en otra pestaña)` : isZinli ? 'Zinli: mostrar QR y copiar correo para aportar' : `${link.name}: enlace de recepción pendiente de configurar`}>
                 <svg viewBox="0 0 24 24" data-icon={link.icon} aria-hidden="true" focusable="false">
                   {link.icon === 'instagram' && (
                     <defs>
@@ -211,7 +212,7 @@ const sceneDestinations = campusSceneNodes
                   )}
                   <path d={iconPaths[link.icon]} />
                 </svg>
-                <span class="scene-icon-label" aria-hidden="true">{link.name}{!link.href && " · Pendiente de configurar"}</span>
+                <span class="scene-icon-label" aria-hidden="true">{link.name}{!link.href && !isZinli && " · Pendiente de configurar"}</span>
               </LinkControl>
             </li>
             );
@@ -225,9 +226,20 @@ const sceneDestinations = campusSceneNodes
     ))}
   </div>
   </div>
+  <dialog id="zinli-payment-dialog" class="zinli-payment-dialog" aria-labelledby="zinli-payment-title" aria-describedby="zinli-payment-instructions">
+    <button type="button" class="zinli-dialog-close" data-zinli-close aria-label="Cerrar datos de Zinli" autofocus>×</button>
+    <h2 id="zinli-payment-title">Aportar con Zinli</h2>
+    <p id="zinli-payment-instructions">Escanea el QR desde la app de Zinli o copia el correo para buscar a la destinataria.</p>
+    <img src="/images/payments/zinli-qr-v1.png" alt="QR de Zinli de Yaskelly Yedra, correo yaskellyyedra@gmail.com." width="744" height="1203" loading="lazy" />
+    <p><strong>Yaskelly Yedra</strong><br /><span data-zinli-email>yaskellyyedra@gmail.com</span></p>
+    <button type="button" class="button" data-zinli-copy>Copiar correo</button>
+    <p class="zinli-copy-status" role="status" aria-live="polite" data-zinli-status></p>
+    <p class="zinli-payment-note">Aporte voluntario. Comprueba el nombre de la destinataria en Zinli antes de confirmar.</p>
+  </dialog>
 </section>
 
 <script>
+  const zinliDialog = document.querySelector<HTMLDialogElement>('#zinli-payment-dialog');
   const scene = document.querySelector<HTMLElement>('.campus-scene');
   if (scene) {
     let active: { control: HTMLButtonElement; panel: HTMLElement } | null = null;
@@ -319,7 +331,7 @@ const sceneDestinations = campusSceneNodes
       }
       positionPanel();
       // Hover keeps focus where it was; deliberate activation enters the links.
-      if (focusLinks) panel.querySelector<HTMLElement>('a, button[aria-disabled]')?.focus();
+      if (focusLinks) panel.querySelector<HTMLElement>('a, button[data-zinli-open], button[aria-disabled]')?.focus();
     }
 
     scene.querySelectorAll<HTMLButtonElement>('button[data-scene-panel]').forEach((control) => {
@@ -331,14 +343,14 @@ const sceneDestinations = campusSceneNodes
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && active) {
+      if (event.key === 'Escape' && active && !zinliDialog?.open) {
         event.preventDefault();
         closePanel(true);
       }
     });
 
     document.addEventListener('pointerdown', (event) => {
-      if (active && event.target instanceof Node &&
+      if (!zinliDialog?.open && active && event.target instanceof Node &&
           !active.control.contains(event.target) && !active.panel.contains(event.target)) {
         closePanel();
       }
@@ -346,4 +358,26 @@ const sceneDestinations = campusSceneNodes
     window.addEventListener('resize', positionPanel);
     scene.addEventListener('load', positionPanel, true);
   }
+
+  const zinliOpener = document.querySelector<HTMLButtonElement>('[data-zinli-open]');
+  const zinliStatus = document.querySelector<HTMLElement>('[data-zinli-status]');
+  zinliOpener?.addEventListener('click', () => {
+    if (zinliStatus) zinliStatus.textContent = '';
+    zinliDialog?.showModal();
+  });
+  document.querySelector('[data-zinli-close]')?.addEventListener('click', () => zinliDialog?.close());
+  zinliDialog?.addEventListener('close', () => zinliOpener?.focus({ preventScroll: true }));
+  zinliDialog?.addEventListener('click', (event) => {
+    if (event.target !== zinliDialog) return;
+    const rect = zinliDialog.getBoundingClientRect();
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) zinliDialog.close();
+  });
+  document.querySelector('[data-zinli-copy]')?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText('yaskellyyedra@gmail.com');
+      if (zinliStatus) zinliStatus.textContent = 'Correo copiado.';
+    } catch {
+      if (zinliStatus) zinliStatus.textContent = 'No se pudo copiar automáticamente. Selecciona y copia el correo que aparece arriba.';
+    }
+  });
 </script>
