@@ -209,6 +209,15 @@ const socialLinks = [
       </ul>
     </nav>
 
+    <div class="campus-share shell">
+      <button type="button" class="campus-share-button" data-campus-share>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><path d="m8.6 10.5 6.8-4 M8.6 13.5l6.8 4" /></svg>
+        Compartir Campus
+      </button>
+      <p class="campus-share-status" data-campus-share-status role="status" aria-live="polite"></p>
+      <p class="campus-share-fallback" data-campus-share-fallback hidden>Copia este enlace: <a href="https://yaskelly.github.io/">https://yaskelly.github.io/</a></p>
+    </div>
+
     <section class="contact-section" id="contact" aria-labelledby="contact-title">
       <div class="shell contact-inner">
         <div>
@@ -228,7 +237,41 @@ const socialLinks = [
   </footer>
 </BaseLayout>
 
+<script>
+  const shareButton = document.querySelector<HTMLButtonElement>('[data-campus-share]');
+  const shareStatus = document.querySelector<HTMLElement>('[data-campus-share-status]');
+  const shareFallback = document.querySelector<HTMLElement>('[data-campus-share-fallback]');
+  shareButton?.addEventListener('click', async () => {
+    const url = 'https://yaskelly.github.io/';
+    if (shareStatus) shareStatus.textContent = '';
+    if (shareFallback) shareFallback.hidden = true;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: 'Campus YaskCode', text: 'Explora el Campus YaskCode: docencia, investigación, proyectos abiertos y comunidades tecnológicas.', url });
+        return;
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      if (shareStatus) shareStatus.textContent = 'Enlace del Campus copiado.';
+    } catch {
+      if (shareFallback) shareFallback.hidden = false;
+      if (shareStatus) shareStatus.textContent = 'Puedes seleccionar y copiar el enlace.';
+    }
+  });
+</script>
+
 <style>
+  .campus-share { text-align: center; padding-bottom: 1.5rem; }
+  .campus-share-button { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-height: 44px; padding: .55rem 1rem; border: 1px solid #c32670; border-radius: .4rem; background: transparent; color: #c32670; font: inherit; cursor: pointer; }
+  .campus-share-button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+  .campus-share-button:hover { background: #fff0f6; }
+  .campus-share-button:focus-visible { outline: 3px solid #b51c5b; outline-offset: 3px; }
+  .campus-share-status { margin: .4rem 0 0; font-size: .9rem; }
+  .campus-share-fallback { overflow-wrap: anywhere; }
+
   .campus-socials { display: block; padding-block: 1rem 1.5rem; }
   .campus-socials ul { width: 100%; box-sizing: border-box; }
   .campus-socials li { display: flex; margin: 0; padding: 0; }
