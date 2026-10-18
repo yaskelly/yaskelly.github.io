@@ -13,9 +13,9 @@ export type CampusSceneNode = {
 
 export const campusSceneNodes: CampusSceneNode[] = [
   {
-    id: 'contacto-correo', kind: 'building', x: 19, y: 86,
+    id: 'contacto-correo', kind: 'building', x: 15.5, y: 87.5,
     width: 'clamp(6rem, 8vw, 8.5rem)', layer: 7,
-    imageSrc: '/images/overlays/camion-contacto-yaskcode-v2.png',
+    imageSrc: '/images/overlays/camion-contacto-yaskcode-v3.png',
     imageAlt: 'Camión magenta y crema de correo, orientado hacia la esquina superior derecha, con el texto Contáctame.',
     fallbackHref: 'mailto:yyedra@fec.luz.edu.ve'
   },
