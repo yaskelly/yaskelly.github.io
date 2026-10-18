@@ -12,3 +12,39 @@
     </nav>
   </div>
 </header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('.site-header');
+  if (header) {
+    const links = Array.from(header.querySelectorAll<HTMLAnchorElement>('nav a[href^="#"]'));
+    const sections = links.flatMap((link) => {
+      const section = document.getElementById(link.hash.slice(1));
+      return section ? [{ link, section }] : [];
+    }).sort((a, b) => a.section.offsetTop - b.section.offsetTop);
+    let scheduled = false;
+    function updateActive() {
+      scheduled = false;
+      const boundary = (header?.getBoundingClientRect().bottom ?? 0) + 24;
+      let current = sections[0];
+      for (const item of sections) {
+        if (item.section.getBoundingClientRect().top <= boundary) current = item;
+      }
+      for (const item of sections) {
+        if (item === current) item.link.setAttribute('aria-current', 'location');
+        else item.link.removeAttribute('aria-current');
+      }
+    }
+    function scheduleUpdate() {
+      if (!scheduled) { scheduled = true; requestAnimationFrame(updateActive); }
+    }
+    const observer = new ResizeObserver(() => {
+      document.documentElement.style.setProperty('--campus-header-height', `${header.getBoundingClientRect().height}px`);
+      scheduleUpdate();
+    });
+    observer.observe(header);
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
+    window.addEventListener('load', scheduleUpdate);
+    updateActive();
+  }
+</script>
