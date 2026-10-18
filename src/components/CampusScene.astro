@@ -20,9 +20,8 @@ const destinationPanels = [
     id: 'cafecito',
     title: 'Aportes voluntarios',
     links: [
-      { name: 'PayPal · USD', href: 'https://paypal.me/YaskellyYubisayYedra', icon: 'paypal' },
       { name: 'Zinli · USD', href: null, icon: 'zinli' },
-      { name: 'Binance Pay · USDT', href: null, icon: 'binance' }
+      { name: 'Binance Pay', href: 'https://app.binance.com/uni-qr/2wKQB6Ma', icon: 'binance' }
     ]
   },
   {
@@ -46,7 +45,6 @@ const destinationPanels = [
 ];
 const panelNodeIds = new Set(destinationPanels.map((panel) => panel.id));
 const iconPaths: Record<string, string> = {
-  paypal: 'M6 21 9 3h6c7 0 6 10-1 10h-4 M10 17h4c6 0 7-9 2-10',
   zinli: 'M5 5h14L5 19h14',
   binance: 'M12 2 16 6 12 10 8 6Z M6 8 10 12 6 16 2 12Z M18 8 22 12 18 16 14 12Z M12 14 16 18 12 22 8 18Z',
   linkedin: 'M3 3h18v18H3Z M7 10v7 M7 7h.01 M11 17v-7 M11 13c0-4 6-4 6 0v4',
