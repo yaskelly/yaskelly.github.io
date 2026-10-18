@@ -9,7 +9,27 @@ const areaById = new Map(campusAreas.map((area) => [area.id, area]));
 const mobileNodeWidth = (width: string) => width.replace(/([\d.]+)(rem|vw)/g,
   (_, value, unit) => `${Number(value) * (unit === 'rem' ? 16 : 12.8) / 1216 * 100}cqw`);
 
+areaById.set('cafecito', {
+  id: 'cafecito', name: 'Invítanos un café', shortName: 'Invítanos un café',
+  description: 'Aportes voluntarios para apoyar los recursos abiertos de YaskCode.',
+  slug: 'cafecito', category: 'infrastructure', navOrder: 16
+});
+
+areaById.set('contacto-correo', {
+  id: 'contacto-correo', name: 'Contáctame', shortName: 'Contáctame',
+  description: 'Escribe a Yaskelly Yedra por correo electrónico.',
+  slug: 'contacto-correo', category: 'infrastructure', navOrder: 17
+});
+
 const destinationPanels = [
+  {
+    id: 'cafecito',
+    title: 'Aportes voluntarios',
+    links: [
+      { name: 'Zinli · USD', href: null, icon: 'zinli' },
+      { name: 'Binance Pay', href: 'https://app.binance.com/uni-qr/2wKQB6Ma', icon: 'binance' }
+    ]
+  },
   {
     id: 'conexiones-profesionales',
     title: 'Conexiones',
@@ -31,6 +51,8 @@ const destinationPanels = [
 ];
 const panelNodeIds = new Set(destinationPanels.map((panel) => panel.id));
 const iconPaths: Record<string, string> = {
+  zinli: 'M5 5h14L5 19h14',
+  binance: 'M12 2 16 6 12 10 8 6Z M6 8 10 12 6 16 2 12Z M18 8 22 12 18 16 14 12Z M12 14 16 18 12 22 8 18Z',
   linkedin: 'M3 3h18v18H3Z M7 10v7 M7 7h.01 M11 17v-7 M11 13c0-4 6-4 6 0v4',
   medium: 'M13 12a6 6 0 1 1-12 0 6 6 0 0 1 12 0 M20 12a3 6 0 1 1-6 0 3 6 0 0 1 6 0 M23 12a1 5.5 0 1 1-2 0 1 5.5 0 0 1 2 0',
   instagram: 'M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5Z M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0 M17.5 6.5h.01',
@@ -126,7 +148,7 @@ const sceneDestinations = campusSceneNodes
           <span class="scene-node-hit" aria-hidden="true"></span>
 
           {node.kind === 'building' ? (
-            <img src={node.imageSrc} alt={node.imageAlt} srcset={node.imageSrc ? responsiveSrcSet(node.imageSrc) : undefined} sizes={buildingSizes} class="scene-building" loading="lazy" decoding="async" />
+            <img src={node.imageSrc} alt={node.imageAlt} srcset={node.imageSrc && node.id !== 'contacto-correo' ? responsiveSrcSet(node.imageSrc) : undefined} sizes={buildingSizes} class="scene-building" loading="lazy" decoding="async" />
           ) : (
             <span class="scene-vector-wrap" aria-hidden="true">
               {node.imageSrc ? (
@@ -154,14 +176,14 @@ const sceneDestinations = campusSceneNodes
               </span>
               )}
               <span class="scene-vector-caption">
-                {node.id === 'entrada-principal' ? 'Suscríbete' : 'Conexiones'}
+                {node.id === 'entrada-principal' ? 'Suscríbete' : node.id === 'cafecito' ? 'Cafecito' : 'Conexiones'}
               </span>
             </span>
           )}
 
           <span class="scene-node-pill">
             <strong>{area.shortName ?? area.name}</strong>
-            <span>EXPLORAR</span>
+            <span>{node.id === 'cafecito' ? 'APOYAR' : 'EXPLORAR'}</span>
           </span>
         </NodeControl>
         );
@@ -178,9 +200,12 @@ const sceneDestinations = campusSceneNodes
         hidden
       >
         <ul class="scene-panel-links">
-          {panel.links.map((link) => (
+          {panel.links.map((link) => {
+            const isZinli = link.icon === 'zinli';
+            const LinkControl = link.href ? 'a' : 'button';
+            return (
             <li>
-              <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={`${link.name} (abre en otra pestaña)`}>
+              <LinkControl href={link.href ?? undefined} type={link.href ? undefined : 'button'} target={link.href ? '_blank' : undefined} rel={link.href ? 'noopener noreferrer' : undefined} data-zinli-open={isZinli ? '' : undefined} aria-haspopup={isZinli ? 'dialog' : undefined} aria-controls={isZinli ? 'zinli-payment-dialog' : undefined} aria-disabled={link.href || isZinli ? undefined : 'true'} aria-label={link.href ? `${link.name} (abre en otra pestaña)` : isZinli ? 'Zinli: mostrar QR y copiar correo para aportar' : `${link.name}: enlace de recepción pendiente de configurar`}>
                 <svg viewBox="0 0 24 24" data-icon={link.icon} aria-hidden="true" focusable="false">
                   {link.icon === 'instagram' && (
                     <defs>
@@ -193,10 +218,11 @@ const sceneDestinations = campusSceneNodes
                   )}
                   <path d={iconPaths[link.icon]} />
                 </svg>
-                <span class="scene-icon-label" aria-hidden="true">{link.name}</span>
-              </a>
+                <span class="scene-icon-label" aria-hidden="true">{link.name}{!link.href && !isZinli && " · Pendiente de configurar"}</span>
+              </LinkControl>
             </li>
-          ))}
+            );
+          })}
         </ul>
         <button type="button" class="scene-panel-close" data-scene-panel-close aria-label={`Cerrar panel de ${panel.title}`}>
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 6 12 12 M18 6 6 18" /></svg>
@@ -206,9 +232,20 @@ const sceneDestinations = campusSceneNodes
     ))}
   </div>
   </div>
+  <dialog id="zinli-payment-dialog" class="zinli-payment-dialog" aria-labelledby="zinli-payment-title" aria-describedby="zinli-payment-instructions">
+    <button type="button" class="zinli-dialog-close" data-zinli-close aria-label="Cerrar datos de Zinli" autofocus>×</button>
+    <h2 id="zinli-payment-title">Aportar con Zinli</h2>
+    <p id="zinli-payment-instructions">Escanea el QR desde la app de Zinli o copia el correo para buscar a la destinataria.</p>
+    <img src="/images/payments/zinli-qr-v1.png" alt="QR de Zinli de Yaskelly Yedra, correo yaskellyyedra@gmail.com." width="744" height="1203" loading="lazy" />
+    <p><strong>Yaskelly Yedra</strong><br /><span data-zinli-email>yaskellyyedra@gmail.com</span></p>
+    <button type="button" class="button" data-zinli-copy>Copiar correo</button>
+    <p class="zinli-copy-status" role="status" aria-live="polite" data-zinli-status></p>
+    <p class="zinli-payment-note">Aporte voluntario. Comprueba el nombre de la destinataria en Zinli antes de confirmar.</p>
+  </dialog>
 </section>
 
 <script>
+  const zinliDialog = document.querySelector<HTMLDialogElement>('#zinli-payment-dialog');
   const scene = document.querySelector<HTMLElement>('.campus-scene');
   if (scene) {
     let active: { control: HTMLButtonElement; panel: HTMLElement } | null = null;
@@ -275,7 +312,8 @@ const sceneDestinations = campusSceneNodes
       const image = control.querySelector<HTMLImageElement>('.scene-building');
       const building = image ? visibleImageRect(image) : control.getBoundingClientRect();
       // Research uses its own visible image as the anchor, just like Conexiones.
-      panel.style.left = `${building.right + 10 - origin.left}px`;
+      const isCoffee = control.dataset.nodeId === 'cafecito';
+      panel.style.left = `${isCoffee ? building.left - panel.offsetWidth - 10 - origin.left : building.right + 10 - origin.left}px`;
       panel.style.top = `${(building.top + building.bottom - panel.offsetHeight) / 2 - origin.top}px`;
     }
 
@@ -299,7 +337,7 @@ const sceneDestinations = campusSceneNodes
       }
       positionPanel();
       // Hover keeps focus where it was; deliberate activation enters the links.
-      if (focusLinks) panel.querySelector<HTMLAnchorElement>('a')?.focus();
+      if (focusLinks) panel.querySelector<HTMLElement>('a, button[data-zinli-open], button[aria-disabled]')?.focus();
     }
 
     scene.querySelectorAll<HTMLButtonElement>('button[data-scene-panel]').forEach((control) => {
@@ -311,14 +349,14 @@ const sceneDestinations = campusSceneNodes
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && active) {
+      if (event.key === 'Escape' && active && !zinliDialog?.open) {
         event.preventDefault();
         closePanel(true);
       }
     });
 
     document.addEventListener('pointerdown', (event) => {
-      if (active && event.target instanceof Node &&
+      if (!zinliDialog?.open && active && event.target instanceof Node &&
           !active.control.contains(event.target) && !active.panel.contains(event.target)) {
         closePanel();
       }
@@ -326,4 +364,26 @@ const sceneDestinations = campusSceneNodes
     window.addEventListener('resize', positionPanel);
     scene.addEventListener('load', positionPanel, true);
   }
+
+  const zinliOpener = document.querySelector<HTMLButtonElement>('[data-zinli-open]');
+  const zinliStatus = document.querySelector<HTMLElement>('[data-zinli-status]');
+  zinliOpener?.addEventListener('click', () => {
+    if (zinliStatus) zinliStatus.textContent = '';
+    zinliDialog?.showModal();
+  });
+  document.querySelector('[data-zinli-close]')?.addEventListener('click', () => zinliDialog?.close());
+  zinliDialog?.addEventListener('close', () => zinliOpener?.focus({ preventScroll: true }));
+  zinliDialog?.addEventListener('click', (event) => {
+    if (event.target !== zinliDialog) return;
+    const rect = zinliDialog.getBoundingClientRect();
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) zinliDialog.close();
+  });
+  document.querySelector('[data-zinli-copy]')?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText('yaskellyyedra@gmail.com');
+      if (zinliStatus) zinliStatus.textContent = 'Correo copiado.';
+    } catch {
+      if (zinliStatus) zinliStatus.textContent = 'No se pudo copiar automáticamente. Selecciona y copia el correo que aparece arriba.';
+    }
+  });
 </script>

@@ -766,3 +766,32 @@ button.scene-node {
 .subscription-button { flex-shrink: 0; min-height: 44px; }
 .subscription-button:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
 @media (max-width: 760px) { .subscription-section { flex-direction: column; align-items: flex-start; } }
+
+/* Coffee trial: reuse destination panels without changing existing controls. */
+#scene-panel-cafecito, #scene-panel-cafecito .scene-panel-links { flex-direction: column; }
+#scene-panel-cafecito .scene-panel-links button {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; padding: 0; border: 0; border-radius: .35rem;
+  background: transparent; cursor: default;
+}
+#scene-panel-cafecito .scene-panel-links button:is(:hover, :focus-visible) { background: var(--paper); }
+#scene-panel-cafecito button:is(:hover, :focus-visible) .scene-icon-label { visibility: visible; }
+#scene-panel-cafecito .scene-icon-label { left: auto; right: calc(100% + .5rem); top: 50%; transform: translateY(-50%); }
+#scene-panel-cafecito svg[data-icon='paypal'] { color: #003087; }
+#scene-panel-cafecito svg[data-icon='zinli'] { color: #6236b5; }
+#scene-panel-cafecito svg[data-icon='binance'] { color: #9a7100; fill: currentColor; stroke: none; }
+@media (max-width: 1199px) {
+  #scene-panel-cafecito .scene-icon-label { right: auto; left: calc(100% + .5rem); white-space: normal; width: min(10rem, 42vw); }
+}
+
+/* Zinli receipt details open above the map without changing its layout. */
+.zinli-payment-dialog { position: fixed; width: min(26rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); margin: auto; padding: 1.5rem; overflow-y: auto; border: 1px solid var(--line); border-radius: .8rem; background: var(--paper); color: var(--ink); text-align: center; }
+.zinli-payment-dialog::backdrop { background: rgba(23, 23, 27, .55); }
+.zinli-payment-dialog h2 { margin: .5rem 1.25rem .75rem; font-size: 1.5rem; }
+.zinli-payment-dialog p { font-size: 1rem; line-height: 1.5; overflow-wrap: anywhere; }
+.zinli-payment-dialog img { display: block; width: min(100%, 16rem); height: auto; margin: .5rem auto; }
+.zinli-dialog-close { display: block; width: 44px; height: 44px; margin-left: auto; border: 1px solid var(--line); border-radius: .35rem; background: var(--paper); color: var(--ink); font-size: 1.75rem; cursor: pointer; }
+.zinli-payment-dialog button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.zinli-copy-status { min-height: 1.5em; margin: .5rem 0; }
+.zinli-payment-dialog .zinli-payment-note { font-size: .875rem; color: var(--muted); }
+#scene-panel-cafecito button[data-zinli-open] { cursor: pointer; }

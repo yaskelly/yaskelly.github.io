@@ -69,6 +69,15 @@ const iconPaths: Record<string, string> = {
   orcid: 'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z M8 10v7 M8 7h.01 M12 7v10h2a5 5 0 0 0 0-10h-2Z'
 };
 
+const socialLinks = [
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/yaskelly/', color: '#c32670', path: 'M2 2h20v20H2Z M5 9h3v10H5Z M6.5 4.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z M10 9h3v1.4c1-2 6-2.5 6 3V19h-3v-5c0-2.6-3-2.5-3 0v5h-3Z' },
+  { name: 'YouTube', href: 'https://www.youtube.com/@yaskcode', color: '#c32670', path: 'M4 4.5q8-1 16 0 2 .3 2 7.5t-2 7.5q-8 1-16 0Q2 19 2 12t2-7.5Z M10 8v8l6-4Z' },
+  { name: 'Instagram', href: 'https://www.instagram.com/yaskelly', color: '#c32670', path: 'M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z M7 4a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Z M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z M18.5 6a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z' },
+  { name: 'Medium', href: 'https://medium.com/@yaskelly/', color: '#c32670', path: 'M5 1h14a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H5a4 4 0 0 1-4-4V5a4 4 0 0 1 4-4Z M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z M6 7h3l3 6 3-6h3v10h-3v-5l-3 6-3-6v5H6Z' },
+  { name: 'GitHub', href: 'https://github.com/yaskelly', color: '#c32670', path: iconPaths.github },
+  { name: 'Google Scholar', href: 'https://scholar.google.com/citations?user=zySpQB0AAAAJ', color: '#c32670', path: 'M0 9 12 1 24 9 12 17Z M5 14l7 5 7-5v5q-7 6-14 0Z' }
+];
+
 ---
 
 <BaseLayout
@@ -179,6 +188,7 @@ const iconPaths: Record<string, string> = {
       </div>
     </section>
 
+
     <section class="subscription-section shell" id="suscripcion" aria-labelledby="subscription-title">
       <h2 id="subscription-title" class="sr-only">Suscripción a YaskCode</h2>
       <div class="subscription-embed">
@@ -186,6 +196,27 @@ const iconPaths: Record<string, string> = {
         <noscript><a href="https://yaskcode.beehiiv.com/">Suscribirme en beehiiv</a></noscript>
       </div>
     </section>
+
+    <nav class="campus-socials shell" aria-label="Redes sociales y perfiles académicos">
+      <ul>
+        {socialLinks.map((link) => (
+          <li>
+            <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={`${link.name} (abre en otra pestaña)`} title={link.name} style={`--social-color: ${link.color};`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={link.path} fill-rule="evenodd" /></svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="campus-share shell">
+      <button type="button" class="campus-share-button" data-campus-share>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><path d="m8.6 10.5 6.8-4 M8.6 13.5l6.8 4" /></svg>
+        Compartir Campus
+      </button>
+      <p class="campus-share-status" data-campus-share-status role="status" aria-live="polite"></p>
+      <p class="campus-share-fallback" data-campus-share-fallback hidden>Copia este enlace: <a href="https://yaskelly.github.io/">https://yaskelly.github.io/</a></p>
+    </div>
 
     <section class="contact-section" id="contact" aria-labelledby="contact-title">
       <div class="shell contact-inner">
@@ -206,7 +237,50 @@ const iconPaths: Record<string, string> = {
   </footer>
 </BaseLayout>
 
+<script>
+  const shareButton = document.querySelector<HTMLButtonElement>('[data-campus-share]');
+  const shareStatus = document.querySelector<HTMLElement>('[data-campus-share-status]');
+  const shareFallback = document.querySelector<HTMLElement>('[data-campus-share-fallback]');
+  shareButton?.addEventListener('click', async () => {
+    const url = 'https://yaskelly.github.io/';
+    if (shareStatus) shareStatus.textContent = '';
+    if (shareFallback) shareFallback.hidden = true;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: 'Campus YaskCode', text: 'Explora el Campus YaskCode: docencia, investigación, proyectos abiertos y comunidades tecnológicas.', url });
+        return;
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      if (shareStatus) shareStatus.textContent = 'Enlace del Campus copiado.';
+    } catch {
+      if (shareFallback) shareFallback.hidden = false;
+      if (shareStatus) shareStatus.textContent = 'Puedes seleccionar y copiar el enlace.';
+    }
+  });
+</script>
+
 <style>
+  .campus-share { text-align: center; padding-bottom: 1.5rem; }
+  .campus-share-button { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-height: 44px; padding: .55rem 1rem; border: 1px solid #c32670; border-radius: .4rem; background: transparent; color: #c32670; font: inherit; cursor: pointer; }
+  .campus-share-button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+  .campus-share-button:hover { background: #fff0f6; }
+  .campus-share-button:focus-visible { outline: 3px solid #b51c5b; outline-offset: 3px; }
+  .campus-share-status { margin: .4rem 0 0; font-size: .9rem; }
+  .campus-share-fallback { overflow-wrap: anywhere; }
+
+  .campus-socials { display: block; padding-block: 1rem 1.5rem; }
+  .campus-socials ul { width: 100%; box-sizing: border-box; }
+  .campus-socials li { display: flex; margin: 0; padding: 0; }
+  .campus-socials ul { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: clamp(.5rem, 2vw, 1.5rem); margin: 0; padding: 0; list-style: none; }
+  .campus-socials a { display: grid; place-items: center; width: 48px; height: 48px; color: var(--social-color); border-radius: .35rem; }
+  .campus-socials svg { width: 30px; height: 30px; fill: currentColor; stroke: none; }
+  .campus-socials a:hover { background: #fff0f6; }
+  .campus-socials a:focus-visible { outline: 3px solid #b51c5b; outline-offset: 3px; background: #fff0f6; }
+
   #suscripcion { flex-direction: column; align-items: stretch; }
   #suscripcion .subscription-embed { width: 100%; max-width: 100%; min-width: 0; }
 </style>
