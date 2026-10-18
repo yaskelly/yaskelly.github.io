@@ -20,15 +20,22 @@
     const sections = links.flatMap((link) => {
       const section = document.getElementById(link.hash.slice(1));
       return section ? [{ link, section }] : [];
-    }).sort((a, b) => a.section.offsetTop - b.section.offsetTop);
+    });
     let scheduled = false;
     function updateActive() {
       scheduled = false;
       const boundary = (header?.getBoundingClientRect().bottom ?? 0) + 24;
-      let current = sections[0];
-      for (const item of sections) {
+      // Compare viewport coordinates: offsetTop can use different offset parents.
+      const ordered = [...sections].sort((a, b) =>
+        a.section.getBoundingClientRect().top - b.section.getBoundingClientRect().top);
+      let current = ordered[0];
+      for (const item of ordered) {
         if (item.section.getBoundingClientRect().top <= boundary) current = item;
       }
+      // A short final section cannot always reach the sticky header.
+      const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4;
+      const last = ordered[ordered.length - 1];
+      if (atBottom && last && last.section.getBoundingClientRect().top < window.innerHeight) current = last;
       for (const item of sections) {
         if (item === current) item.link.setAttribute('aria-current', 'location');
         else item.link.removeAttribute('aria-current');
