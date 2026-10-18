@@ -15,6 +15,12 @@ areaById.set('cafecito', {
   slug: 'cafecito', category: 'infrastructure', navOrder: 16
 });
 
+areaById.set('contacto-correo', {
+  id: 'contacto-correo', name: 'Contáctame', shortName: 'Contáctame',
+  description: 'Escribe a Yaskelly Yedra por correo electrónico.',
+  slug: 'contacto-correo', category: 'infrastructure', navOrder: 17
+});
+
 const destinationPanels = [
   {
     id: 'cafecito',
@@ -142,7 +148,7 @@ const sceneDestinations = campusSceneNodes
           <span class="scene-node-hit" aria-hidden="true"></span>
 
           {node.kind === 'building' ? (
-            <img src={node.imageSrc} alt={node.imageAlt} srcset={node.imageSrc ? responsiveSrcSet(node.imageSrc) : undefined} sizes={buildingSizes} class="scene-building" loading="lazy" decoding="async" />
+            <img src={node.imageSrc} alt={node.imageAlt} srcset={node.imageSrc && node.id !== 'contacto-correo' ? responsiveSrcSet(node.imageSrc) : undefined} sizes={buildingSizes} class="scene-building" loading="lazy" decoding="async" />
           ) : (
             <span class="scene-vector-wrap" aria-hidden="true">
               {node.imageSrc ? (
