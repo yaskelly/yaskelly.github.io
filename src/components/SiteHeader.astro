@@ -1,13 +1,16 @@
 <header class="site-header">
   <div class="shell header-inner">
-    <a class="brand" href="/" aria-label="Campus YaskCode, inicio">
+    <a class="brand" href="#mapa-campus" aria-label="Campus YaskCode, ir al mapa">
       <span class="brand-mark" aria-hidden="true">Y</span>
       <span>Campus YaskCode</span>
     </a>
     <nav aria-label="Navegación principal">
-      <a href="#about">Sobre el campus</a>
-      <a href="#english-guide" lang="en">English guide</a>
       <a href="#campus">Campus</a>
+      <a href="https://www.yaskellyyedra.com/about/" target="_blank" rel="noopener noreferrer" aria-label="Sobre mí (abre en otra pestaña)">Sobre mí</a>
+      <a href="https://github.com/YaskCode" target="_blank" rel="noopener noreferrer" aria-label="Academy (abre en otra pestaña)">Academy</a>
+      <a href="https://github.com/YaskCode-research" target="_blank" rel="noopener noreferrer" aria-label="Research (abre en otra pestaña)">Research</a>
+      <a href="https://github.com/maestriaentic-luz" target="_blank" rel="noopener noreferrer" aria-label="Posgrado (abre en otra pestaña)">Posgrado</a>
+      <a href="#english-guide" lang="en">English guide</a>
       <a href="#contact">Contacto</a>
     </nav>
   </div>
@@ -28,7 +31,7 @@
       // Compare viewport coordinates: offsetTop can use different offset parents.
       const ordered = [...sections].sort((a, b) =>
         a.section.getBoundingClientRect().top - b.section.getBoundingClientRect().top);
-      let current = ordered[0];
+      let current: typeof ordered[number] | undefined;
       for (const item of ordered) {
         if (item.section.getBoundingClientRect().top <= boundary) current = item;
       }
