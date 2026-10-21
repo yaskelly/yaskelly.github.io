@@ -808,4 +808,4 @@ html { scroll-padding-top: calc(var(--campus-header-height, 8rem) + 1rem); }
 }
 
 /* Increase only the header menu text, preserving other navigation styles. */
-.site-header nav { font-size: 1rem; }
+.site-header nav { font-size: 1.1rem; }
