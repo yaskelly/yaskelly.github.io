@@ -806,3 +806,6 @@ html { scroll-padding-top: calc(var(--campus-header-height, 8rem) + 1rem); }
   .site-header .header-inner { gap: .2rem; padding-block: .35rem; }
   .site-header nav { gap: 0 .85rem; width: 100%; }
 }
+
+/* Increase only the header menu text, preserving other navigation styles. */
+.site-header nav { font-size: 1rem; }
